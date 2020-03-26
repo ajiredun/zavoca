@@ -1,12 +1,94 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Zavoca{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+        <!-- Icons -->
+        <link href="{{ asset('assets/admin/js/plugins/nucleo/css/nucleo.css') }}" rel="stylesheet"/>
+        <link href=" {{ asset('assets/admin/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}"
+              rel="stylesheet"/>
+        <!-- CSS Files -->
+        <link href="{{ asset('assets/admin/css/argon-dashboard.css') }}?v=1.1.0" rel="stylesheet"/>
+        <link rel="stylesheet" href="{{ asset('assets/admin/css/rf.css') }}"/>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    {% endblock %}
+    {% block css %}{% endblock %}
+</head>
+<body>
+
+{% block whole %}
+    {% block sidenav %}
+    {% endblock %}
+    <div class="main-content">
+        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+            <div class="alert alert-warning" style="margin-bottom: 0;">
+                You are currently switched to another user.
+                <a href="{{ path('rf_dashboard', {'_switch_user': '_exit'}) }}">Exit Impersonation</a>
+            </div>
+        {% endif %}
+        {% block body %}
+            {% block nav %}
+            {% endblock %}
+            {% block header %}
+                {% include 'admin/header.html.twig' %}
+            {% endblock %}
+            <div class="container-fluid mt--7">
+                {% include 'admin/components/rf_messages.html.twig' %}
+                {% include 'admin/components/rf_object_relations.html.twig' %}
+                {% block content %}
+
+                {% endblock %}
+                <!-- Footer -->
+                <footer class="footer">
+                    <div class="row align-items-center justify-content-xl-between">
+                        <div class="col-xl-6">
+                            <div class="copyright text-center text-xl-left text-muted">
+                                &copy; 2019 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1"
+                                               target="_blank">Ajir Edun</a>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link" target="_blank">Zavoca</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link" target="_blank">Documentation</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
+    <!--   Optional JS   -->
+    {#<script src="{{ asset('assets/admin/js/plugins/chart.js/dist/Chart.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/plugins/chart.js/dist/Chart.extension.js') }}"></script>#}
+    <!--   Argon JS   -->
+    <script src="{{ asset('assets/admin/js/argon-dashboard.min.js') }}?v=1.1.0"></script>
+    <script src="{{ asset('assets/admin/js/Sortable.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/rf.js') }}?v=1.1.0"></script>
+    {% block js %}{% endblock %}
+{% endblock %}
+</body>
 </html>
