@@ -49,7 +49,7 @@ class User implements UserInterface
     private $status;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $activation;
 
@@ -92,6 +92,38 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $darkTheme;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime('now');
+        $this->darkTheme = true;
+    }
+
+    /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function isActiveNow()
+    {
+        // Delay during wich the user will be considered as still active
+        $delay = new \DateTime('5 minutes ago');
+
+        return ( $this->getLastactive() > $delay );
+    }
+
+    public function getName()
+    {
+        return $this->getFirstname() . " " . $this->getLastname();
+    }
+
+    /**
+     * @return string
+     * @Groups({"user:read", "users:read"})
+     */
+    public function getPicture()
+    {
+        return 'https://api.adorable.io/avatars/100/zvc'.$this->getId().'.png';
+    }
 
     public function getId(): ?int
     {
