@@ -3,12 +3,15 @@
 namespace App\Security;
 
 use App\Entity\User;
+use App\Enums\UserStatus;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Security;
@@ -72,6 +75,16 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             throw new CustomUserMessageAuthenticationException('Email could not be found.');
         }
 
+        if ($user->getStatus() === UserStatus::ARCHIVED) {
+            throw new CustomUserMessageAuthenticationException('Your account has been archived. Please contact admin.');
+        }
+        if ($user->getStatus() === UserStatus::BLOCKED) {
+            throw new CustomUserMessageAuthenticationException('Your account has been blocked. Please contact admin.');
+        }
+        if ($user->getStatus() === UserStatus::INACTIVE) {
+            throw new CustomUserMessageAuthenticationException('Please activate your account first.');
+        }
+
         return $user;
     }
 
@@ -94,8 +107,25 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             return new RedirectResponse($targetPath);
         }
 
-        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        return new RedirectResponse($this->urlGenerator->generate('zvc_main'));
+    }
+
+    public function start(Request $request, AuthenticationException $authException = null)
+    {
+
+        if (null !== $request->getPathInfo()) {
+            $path = $request->getPathInfo();
+            if (strpos($path, '/api') !== false) {
+                return new JsonResponse(
+                    [
+                        'message' => 'Access Denied - Trying to login from a form!'
+                    ],
+                    403
+                );
+            }
+        }
+
+        return parent::start($request, $authException);
     }
 
     protected function getLoginUrl()

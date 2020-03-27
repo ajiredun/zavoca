@@ -1,0 +1,44 @@
+{% block zavacoMessages %}
+    {% if zavoca_messages is defined and zavoca_messages.messages is defined %}
+        {% if zavoca_messages.messages.zavoca_success is defined and zavoca_messages.messages.zavoca_success is not empty %}
+            {% for message in zavoca_messages.messages.zavoca_success %}
+                <div class="alert alert-success">
+                    <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="tim-icons icon-simple-remove"></i>
+                    </button>
+                    <span>{{ message }}</span>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% if zavoca_messages.messages.zavoca_info is defined and zavoca_messages.messages.zavoca_info is not empty %}
+            {% for message in zavoca_messages.messages.zavoca_info %}
+                <div class="alert alert-info">
+                    <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="tim-icons icon-simple-remove"></i>
+                    </button>
+                    <span>{{ message }}</span>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% if zavoca_messages.messages.zavoca_warning is defined and zavoca_messages.messages.zavoca_warning is not empty %}
+            {% for message in zavoca_messages.messages.zavoca_warning %}
+                <div class="alert alert-warning">
+                    <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="tim-icons icon-simple-remove"></i>
+                    </button>
+                    <span>{{ message }}</span>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% if zavoca_messages.messages.zavoca_error is defined and zavoca_messages.messages.zavoca_error is not empty %}
+            {% for message in zavoca_messages.messages.zavoca_error %}
+                <div class="alert alert-danger">
+                    <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="tim-icons icon-simple-remove"></i>
+                    </button>
+                    <span>{{ message }}</span>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+{% endblock %}

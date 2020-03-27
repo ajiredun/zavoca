@@ -20,12 +20,12 @@
     </li>
     <li class="dropdown nav-item">
         <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-            <div class="photo">
-                <img src="https://media-exp1.licdn.com/dms/image/C4E03AQHCrB0PXAkmpw/profile-displayphoto-shrink_200_200/0?e=1585785600&v=beta&t=zPD8fMRBTOLhwo_D2mnb7dATaNwxN31tFHWggfUPasE">
+            <div class="photo active" title="{{ app.user.name }}">
+                <img src="{{ app.user.picture }}" alt="{{ app.user.name }}">
             </div>
             <b class="caret d-none d-lg-block d-xl-block"></b>
             <p class="d-lg-none">
-                Log out
+                {{ app.user.name }}
             </p>
         </a>
         <ul class="dropdown-menu dropdown-navbar">
@@ -37,7 +37,7 @@
             </li>
             <div class="dropdown-divider"></div>
             <li class="nav-link">
-                <a href="#" class="nav-item dropdown-item">Log out</a>
+                <a href="{{ path('app_logout') }}" class="nav-item dropdown-item">Log out</a>
             </li>
         </ul>
     </li>

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block wrapper %}
+    <div class="main-panel">
+        <div class="content">
+            <div class="row">
+                <div class="col-md-6">{% block left %}{% endblock %}</div>
+                <div class="col-md-4">{% block right %}{% endblock %}</div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block fixed_plugin %}
+    <li class="header-title">Mode</li>
+    <li class="adjustments-line text-center color-change">
+        <span class="color-label">LIGHT MODE</span>
+        <span class="badge light-badge mr-2"></span>
+        <span class="badge dark-badge ml-2"></span>
+        <span class="color-label">DARK MODE</span>
+    </li>
+{% endblock %}

@@ -122,7 +122,7 @@ class User implements UserInterface
      */
     public function getPicture()
     {
-        return 'https://api.adorable.io/avatars/100/zvc'.$this->getId().'.png';
+        return 'https://api.adorable.io/avatars/100/zvc-ajir-'.$this->getId().'.png';
     }
 
     public function getId(): ?int

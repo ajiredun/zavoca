@@ -2833,16 +2833,21 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret,
   border-top: 2px solid #2b5874;
 }
 
-.navbar .photo {
+.photo {
   display: inline-block;
   height: 30px;
   width: 30px;
-  border-radius: 50%;
+  border-radius: 30%;
   vertical-align: middle;
   overflow: hidden;
+  border: 2px solid #2b5874;
 }
 
-.navbar .photo img {
+.photo.active {
+  border: 2px solid springgreen;
+}
+
+.photo img {
   width: 100%;
 }
 
@@ -4280,7 +4285,7 @@ table.tablesorter thead tr .headerSortDown {
   z-index: 1031;
   border-radius: 8px 0 0 8px;
   text-align: center;
-  top: 450px;
+  top: 520px;
 }
 
 .fixed-plugin li>a,
@@ -4906,11 +4911,11 @@ table.tablesorter thead tr .headerSortDown {
 }
 
 .card-user .author .block.block-one {
-  background: rgba(225, 78, 202, 0.6);
-  background: -webkit-linear-gradient(to right, rgba(225, 78, 202, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
-  background: -o-linear-gradient(to right, rgba(225, 78, 202, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
-  background: -moz-linear-gradient(to right, rgba(225, 78, 202, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
-  background: linear-gradient(to right, rgba(225, 78, 202, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
+  background: rgba(43, 88, 116, 0.6);
+  background: -webkit-linear-gradient(to right, rgba(43, 88, 116, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
+  background: -o-linear-gradient(to right, rgba(43, 88, 116, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
+  background: -moz-linear-gradient(to right, rgba(43, 88, 116, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
+  background: linear-gradient(to right, rgba(43, 88, 116, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=10);
   -webkit-transform: rotate(150deg);
   -moz-transform: rotate(150deg);
@@ -4922,11 +4927,11 @@ table.tablesorter thead tr .headerSortDown {
 }
 
 .card-user .author .block.block-two {
-  background: rgba(225, 78, 202, 0.6);
-  background: -webkit-linear-gradient(to right, rgba(225, 78, 202, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
-  background: -o-linear-gradient(to right, rgba(225, 78, 202, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
-  background: -moz-linear-gradient(to right, rgba(225, 78, 202, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
-  background: linear-gradient(to right, rgba(225, 78, 202, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
+  background: rgba(43, 88, 116, 0.6);
+  background: -webkit-linear-gradient(to right, rgba(43, 88, 116, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
+  background: -o-linear-gradient(to right, rgba(43, 88, 116, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
+  background: -moz-linear-gradient(to right, rgba(43, 88, 116, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
+  background: linear-gradient(to right, rgba(43, 88, 116, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=10);
   -webkit-transform: rotate(30deg);
   -moz-transform: rotate(30deg);
@@ -4938,11 +4943,11 @@ table.tablesorter thead tr .headerSortDown {
 }
 
 .card-user .author .block.block-three {
-  background: rgba(225, 78, 202, 0.6);
-  background: -webkit-linear-gradient(to right, rgba(225, 78, 202, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
-  background: -o-linear-gradient(to right, rgba(225, 78, 202, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
-  background: -moz-linear-gradient(to right, rgba(225, 78, 202, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
-  background: linear-gradient(to right, rgba(225, 78, 202, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
+  background: rgba(43, 88, 116, 0.6);
+  background: -webkit-linear-gradient(to right, rgba(43, 88, 116, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
+  background: -o-linear-gradient(to right, rgba(43, 88, 116, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
+  background: -moz-linear-gradient(to right, rgba(43, 88, 116, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
+  background: linear-gradient(to right, rgba(43, 88, 116, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=10);
   -webkit-transform: rotate(170deg);
   -moz-transform: rotate(170deg);
@@ -4954,11 +4959,11 @@ table.tablesorter thead tr .headerSortDown {
 }
 
 .card-user .author .block.block-four {
-  background: rgba(225, 78, 202, 0.6);
-  background: -webkit-linear-gradient(to right, rgba(225, 78, 202, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
-  background: -o-linear-gradient(to right, rgba(225, 78, 202, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
-  background: -moz-linear-gradient(to right, rgba(225, 78, 202, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
-  background: linear-gradient(to right, rgba(225, 78, 202, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
+  background: rgba(43, 88, 116, 0.6);
+  background: -webkit-linear-gradient(to right, rgba(43, 88, 116, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
+  background: -o-linear-gradient(to right, rgba(43, 88, 116, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
+  background: -moz-linear-gradient(to right, rgba(43, 88, 116, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
+  background: linear-gradient(to right, rgba(43, 88, 116, 0.6) 0%, rgba(225, 78, 202, 0) 100%);
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=10);
   -webkit-transform: rotate(150deg);
   -moz-transform: rotate(150deg);

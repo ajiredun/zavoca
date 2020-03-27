@@ -1,0 +1,21 @@
+{% extends 'security/security_base.html.twig' %}
+
+{% block right %}
+
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-transparent text-center">
+                <div class="card-header">
+                    <h2 class="card-title">Page not found</h2>
+                </div>
+                <div class="card-body text-center">
+                    <p>
+                        The requested page couldn't be located. Checkout for any URL
+                        misspelling or <a href="{{ path('homepage') }}">return to the homepage</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

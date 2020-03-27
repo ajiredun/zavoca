@@ -10,6 +10,7 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
+    access_denied_url: /login
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -20,6 +21,10 @@ security:
             guard:
                 authenticators:
                     - App\Security\LoginFormAuthenticator
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 86400
+            switch_user: true
             logout:
                 path: app_logout
                 # where to redirect after logout
@@ -34,5 +39,18 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/forgot-password$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/activate, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/efconnect, role: ROLE_VIEWER }
+        - { path: ^/elfinder/files_viewer, role: ROLE_VIEWER }
+        - { path: ^/elfinder/files, role: ROLE_MEDIA_MANAGEMENT_EDITOR }
+        - { path: ^/elfinder/gallery_viewer, role: ROLE_VIEWER }
+        - { path: ^/elfinder/gallery, role: ROLE_MEDIA_MANAGEMENT_EDITOR }
+        - { path: ^/, roles: ROLE_VIEWER }
+
+    role_hierarchy:
+        ROLE_VIEWER: [ROLE_USER_MANAGEMENT_VIEWER]
+        ROLE_ADMIN: [ROLE_ALLOWED_TO_SWITCH, ROLE_VIEWER]
