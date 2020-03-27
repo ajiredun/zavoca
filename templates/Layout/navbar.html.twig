@@ -1,0 +1,46 @@
+{% block navbar %}
+    <ul class="navbar-nav ml-auto ">
+    <div class="search-bar input-group">
+        <input type="text" class="form-control" placeholder="Search...">
+        <div class="input-group-addon"><i class="tim-icons icon-zoom-split"></i></div>
+    </div>
+    <li class="dropdown nav-item">
+        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+            <div class="notification d-none d-lg-block d-xl-block"></div>
+            <i class="tim-icons icon-sound-wave"></i>
+            <p class="d-lg-none">
+                New Notifications
+            </p>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
+            <li class="nav-link">
+                <a href="#" class="nav-item dropdown-item">https://demos.creative-tim.com/black-dashboard/docs/1.0/getting-started/introduction.html</a>
+            </li>
+        </ul>
+    </li>
+    <li class="dropdown nav-item">
+        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+            <div class="photo">
+                <img src="https://media-exp1.licdn.com/dms/image/C4E03AQHCrB0PXAkmpw/profile-displayphoto-shrink_200_200/0?e=1585785600&v=beta&t=zPD8fMRBTOLhwo_D2mnb7dATaNwxN31tFHWggfUPasE">
+            </div>
+            <b class="caret d-none d-lg-block d-xl-block"></b>
+            <p class="d-lg-none">
+                Log out
+            </p>
+        </a>
+        <ul class="dropdown-menu dropdown-navbar">
+            <li class="nav-link">
+                <a href="#" class="nav-item dropdown-item">Profile</a>
+            </li>
+            <li class="nav-link">
+                <a href="#" class="nav-item dropdown-item">Settings</a>
+            </li>
+            <div class="dropdown-divider"></div>
+            <li class="nav-link">
+                <a href="#" class="nav-item dropdown-item">Log out</a>
+            </li>
+        </ul>
+    </li>
+    <li class="separator d-lg-none"></li>
+</ul>
+{% endblock %}

@@ -2,93 +2,139 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <title>{% block title %}Zavoca{% endblock %}</title>
     {% block stylesheets %}
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-        <!-- Icons -->
-        <link href="{{ asset('assets/admin/js/plugins/nucleo/css/nucleo.css') }}" rel="stylesheet"/>
-        <link href=" {{ asset('assets/admin/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}"
-              rel="stylesheet"/>
-        <!-- CSS Files -->
-        <link href="{{ asset('assets/admin/css/argon-dashboard.css') }}?v=1.1.0" rel="stylesheet"/>
-        <link rel="stylesheet" href="{{ asset('assets/admin/css/rf.css') }}"/>
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+        {{ encore_entry_link_tags('app') }}
+        <!--     Fonts and icons     -->
+        <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+        <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     {% endblock %}
     {% block css %}{% endblock %}
 </head>
 <body>
 
 {% block whole %}
-    {% block sidenav %}
-    {% endblock %}
-    <div class="main-content">
-        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-            <div class="alert alert-warning" style="margin-bottom: 0;">
-                You are currently switched to another user.
-                <a href="{{ path('rf_dashboard', {'_switch_user': '_exit'}) }}">Exit Impersonation</a>
-            </div>
-        {% endif %}
-        {% block body %}
-            {% block nav %}
-            {% endblock %}
-            {% block header %}
-                {% include 'admin/header.html.twig' %}
-            {% endblock %}
-            <div class="container-fluid mt--7">
-                {#{% include 'admin/components/rf_messages.html.twig' %}
-                {% include 'admin/components/rf_object_relations.html.twig' %}#}
-                {% block content %}
-
-                {% endblock %}
-                <!-- Footer -->
-                <footer class="footer">
-                    <div class="row align-items-center justify-content-xl-between">
-                        <div class="col-xl-6">
-                            <div class="copyright text-center text-xl-left text-muted">
-                                &copy; 2019 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1"
-                                               target="_blank">Ajir Edun</a>
-                            </div>
-                        </div>
-                        <div class="col-xl-6">
-                            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link" target="_blank">Zavoca</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link" target="_blank">Documentation</a>
-                                </li>
+    <div class="wrapper ">
+        {% block wrapper %}
+            {% block sidebar_container %}
+                <div class="sidebar">
+                    {% block sidebar_wrapper %}
+                        <div class="sidebar-wrapper">
+                            <ul class="nav">
+                                {% block sidebar_nav %}
+                                    {% include 'Layout/sidebar.html.twig' %}
+                                {% endblock %}
                             </ul>
                         </div>
-                    </div>
-                </footer>
-            </div>
+                    {% endblock %}
+                </div>
+            {% endblock %}
+            {% block main_container %}
+                <div class="main-panel">
+                    {% block main_wrapper %}
+                        {% block navbar_container %}
+                            <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
+                                <div class="container-fluid">
+                                    <div class="navbar-wrapper">
+                                        <div class="navbar-toggle d-inline">
+                                            <button type="button" class="navbar-toggler">
+                                                <span class="navbar-toggler-bar bar1"></span>
+                                                <span class="navbar-toggler-bar bar2"></span>
+                                                <span class="navbar-toggler-bar bar3"></span>
+                                            </button>
+                                        </div>
+                                        <a class="navbar-brand" href="/">
+                                            <img id="zvc-logo" src="{{ asset('build/logo.png') }}" alt="Logo">
+                                        </a>
+                                    </div>
+                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                                    </button>
+                                    <div class="collapse navbar-collapse" id="navigation">
+                                        {% block navbar %}
+                                            {% include 'Layout/navbar.html.twig' %}
+                                        {% endblock %}
+                                    </div>
+                                </div>
+                            </nav>
+                        {% endblock %}
+                        {% block content_container %}
+                            <div class="content">
+                                {% block content_wrapper %}
+                                    <div class="row">
+                                        <div class="col-12">
+                                            {% block alerts %}
+                                                <div class="alert alert-info">
+                                                    <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                                                        <i class="tim-icons icon-simple-remove"></i>
+                                                    </button>
+                                                    <span>This is a notification with close button.</span>
+                                                </div>
+                                            {% endblock %}
+                                        </div>
+                                    </div>
+                                    {% block content %}
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <p class="text-muted">You should override content block</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endblock %}
+                                {% endblock %}
+                            </div>
+                        {% endblock %}
+                        {% block footer_container %}
+                            <footer class="footer">
+                                <div class="container-fluid">
+                                    {% block footer %}
+                                        {% include 'Layout/footer.html.twig' %}
+                                    {% endblock %}
+                                    <div class="copyright float-right">
+                                        ©
+                                        <script>
+                                            document.write(new Date().getFullYear())
+                                        </script> made with <i class="tim-icons icon-heart-2"></i> by
+                                        <a href="https://www.ajiredun.com" target="_blank">Ajir Edun
+                            </footer>
+                        {% endblock %}
+                    {% endblock %}
+                </div>
+            {% endblock %}
         {% endblock %}
+    </div>
+    <div class="fixed-plugin">
+        <div class="dropdown show-dropdown">
+            <a href="#" data-toggle="dropdown">
+                <i class="fa fa-cog fa-2x"> </i>
+            </a>
+            <ul class="dropdown-menu">
+                {% block fixed_plugin %}
+                    <li class="header-title">Mode</li>
+                    <li class="adjustments-line text-center color-change">
+                        <span class="color-label">LIGHT MODE</span>
+                        <span class="badge light-badge mr-2"></span>
+                        <span class="badge dark-badge ml-2"></span>
+                        <span class="color-label">DARK MODE</span>
+                    </li>
+                {% endblock %}
+            </ul>
+        </div>
     </div>
 {% endblock %}
 {% block javascripts %}
-    <script
-            src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-
-    <!--   Optional JS   -->
-    {#<script src="{{ asset('assets/admin/js/plugins/chart.js/dist/Chart.min.js') }}"></script>
-    <script src="{{ asset('assets/admin/js/plugins/chart.js/dist/Chart.extension.js') }}"></script>#}
-    <!--   Argon JS   -->
-    <script src="{{ asset('assets/admin/js/argon-dashboard.min.js') }}?v=1.1.0"></script>
-    <script src="{{ asset('assets/admin/js/Sortable.min.js') }}"></script>
-    <script src="{{ asset('assets/admin/js/rf.js') }}?v=1.1.0"></script>
-    {% block js %}{% endblock %}
+    {{ encore_entry_script_tags('app') }}
+    {#<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>#}
+    {#<script src="{{ asset('assets/admin/js/Sortable.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/rf.js') }}?v=1.1.0"></script>#}
 {% endblock %}
+{% block js %}{% endblock %}
 </body>
 </html>
