@@ -16,7 +16,6 @@ class MainController extends AbstractZavocaController
      */
     public function main(ZavocaMessages $zavocaMessages)
     {
-        $zavocaMessages->addSuccess("Zavoca is king");
         return $this->render('main/main.html.twig');
     }
 
@@ -27,14 +26,8 @@ class MainController extends AbstractZavocaController
     public function test(ZavocaMessages $zavocaMessages)
     {
 
-        $zavocaMessages->addError('Hello World error');
-        $zavocaMessages->addError("well well well");
-        $zavocaMessages->addInfo("this is awesome");
-        $zavocaMessages->addSuccess("all is well");
-        $zavocaMessages->addSuccess("you confirm?");
+        $zavocaMessages->addWarning('Redirected from /test to /');
 
         return $this->redirectToRoute('zvc_main');
-
-        //return $this->render('main/main.html.twig');
     }
 }

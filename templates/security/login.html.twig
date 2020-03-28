@@ -1,88 +1,75 @@
-{% extends 'security/security_base.html.twig' %}
+{% extends 'plain_card_base.html.twig' %}
 
 {% block title %}Log in!{% endblock %}
 
 
+{% block card_header %}
+    <img id="zvc-logo" style="max-width:150px;" src="{{ asset('build/logo.png') }}" alt="Logo">
+    <h2 class="card-title">Sign In</h2>
+{% endblock %}
 
-{% block right %}
-    <div class="row">
-        <div class="col-12">
-            <div class="card bg-transparent text-center">
-                <div class="card-header">
-                    <img id="zvc-logo mb-10" style="max-width:225px;" src="{{ asset('build/logo.png') }}" alt="Logo">
-                </div>
+
+{% block card_body %}
+    <form method="post">
+        {% if error %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="tim-icons icon-simple-remove"></i>
+                </button>
             </div>
-            <div class="card card-user">
-                <div class="card-body">
-                    <p class="card-text"></p>
-                    <div class="author">
-                        <div class="block block-one"></div>
-                        <div class="block block-two"></div>
-                        <div class="block block-three"></div>
-                        <div class="block block-four"></div>
-                        <p class="description">
-                            <h2 class="card-title">Sign In</h2>
-                        </p>
-                    </div>
-                    <p></p>
-                    <div class="card-description">
-                        <form method="post">
-                            {% if error %}
-                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    {{ error.messageKey|trans(error.messageData, 'security') }}
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <i class="tim-icons icon-simple-remove"></i>
-                                    </button>
-                                </div>
-                            {% endif %}
+        {% endif %}
 
-                            {% if app.user %}
-                                <div class="mb-3">
-                                    You are logged in as {{ app.user.username }}, <a
-                                            href="{{ path('app_logout') }}">Logout</a>
-                                </div>
-                            {% endif %}
-
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-user"></i>
-                                    </div>
-                                </div>
-                                <input id="inputUsername" type="email" value="{{ last_username }}" name="email" id="inputEmail"
-                                       class="form-control" required autofocus class="form-control" placeholder="Email">
-                            </div>
-
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-key"></i>
-                                    </div>
-                                </div>
-                                <input id="inputPassword" type="password" name="password" id="inputEmail"
-                                       class="form-control" required placeholder="Password">
-                            </div>
-
-                            <input type="hidden" name="_csrf_token"
-                                   value="{{ csrf_token('authenticate') }}"
-                            >
-
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" name="_remember_me" />
-                                    Remember me
-                                    <span class="form-check-sign"><span class="check"></span></span>
-                                </label>
-                            </div>
-                            <br/><br/>
-
-                            <button class="btn btn-lg btn-primary btn-block" type="submit">
-                                Sign in
-                            </button>
-                        </form>
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.username }}, <a
+                        href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% else %}
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fas fa-user"></i>
                     </div>
                 </div>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required placeholder="Email">
             </div>
-        </div>
-    </div>
+
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fas fa-key"></i>
+                    </div>
+                </div>
+                <input id="inputPassword" type="password" name="password" class="form-control" required placeholder="Password">
+            </div>
+
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}"
+            >
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="_remember_me" />
+                    Remember me
+                    <span class="form-check-sign"><span class="check"></span></span>
+                </label>
+            </div>
+            <br/><br/>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">
+                Sign in
+            </button>
+        {% endif %}
+    </form>
+{% endblock %}
+
+
+{% block card_footer %}
+    <a href="{{ path('app_forget_password') }}" class="btn btn-sm btn-info btn-simple">
+        <i class="fas fa-unlock"></i> &nbsp;&nbsp; Forgot Password ?
+    </a>
+    <a href="{{ path('app_register') }}" class="btn btn-sm btn-success btn-simple">
+        <i class="fas fa-user-plus"></i> &nbsp;&nbsp; Create Account
+    </a>
 {% endblock %}

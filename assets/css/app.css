@@ -2,6 +2,15 @@
     width: 150px;
 }
 
+.zvc-animated-background, .main-panel.zvc-animated-background {
+
+}
+
+.main-panel.zvc-animated-background .content {
+    margin-top: 0px;
+    padding-top:0px;
+}
+
 @media screen and (min-width: 768px) {
     .navbar .navbar-brand {
         margin-top:-8px;

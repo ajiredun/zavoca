@@ -13,8 +13,7 @@
     {% endblock %}
     {% block css %}{% endblock %}
 </head>
-<body>
-
+<body {% if app.user is defined and app.user and not app.user.darkTheme %}class="white-content"{% endif %}>
 {% block whole %}
     <div class="wrapper ">
         {% block wrapper %}
@@ -67,8 +66,8 @@
                                 {% block content_wrapper %}
                                     <div class="row">
                                         <div class="col-12">
-                                            {% block zavacoMessages %}
-                                                {% include 'layout/zavacoMessages.html.twig' %}
+                                            {% block zavocaMessages %}
+                                                {% include 'layout/zavocaMessages.html.twig' %}
                                             {% endblock %}
                                         </div>
                                     </div>

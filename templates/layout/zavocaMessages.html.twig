@@ -1,4 +1,4 @@
-{% block zavacoMessages %}
+{% block zavocaMessages %}
     {% if zavoca_messages is defined and zavoca_messages.messages is defined %}
         {% if zavoca_messages.messages.zavoca_success is defined and zavoca_messages.messages.zavoca_success is not empty %}
             {% for message in zavoca_messages.messages.zavoca_success %}
@@ -42,3 +42,10 @@
         {% endif %}
     {% endif %}
 {% endblock %}
+
+{% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+    <div class="alert alert-warning">
+        You are currently switched to another user.
+        <a href="{{ path('zvc_main', {'_switch_user': '_exit'}) }}">Exit Impersonation</a>
+    </div>
+{% endif %}

@@ -79,7 +79,7 @@ class KernelSubscriber implements EventSubscriberInterface
         $response = $event->getResponse();
 
         if ($response instanceof RedirectResponse) {
-            //we shall add all the Zavaco Messages as flash
+            //we shall add all the zavoca Messages as flash
             foreach ($this->zavocaMessages->getMessages() as $category => $values) {
                 if (!empty($values)) {
                     foreach ($values as $value) {

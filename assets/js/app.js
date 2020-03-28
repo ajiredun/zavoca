@@ -22,6 +22,20 @@ import Chart from 'chart.js';
 
 // CODES START HERE
 $(document).ready(function() {
+
+    var backgrounds = [
+        'https://images.unsplash.com/photo-1486728297118-82a07bc48a28?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1800&q=10',
+        'https://images.unsplash.com/photo-1541701494587-cb58502866ab?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1800&q=10',
+        'https://images.unsplash.com/photo-1468476775582-6bede20f356f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1800&q=10',
+        'https://images.unsplash.com/photo-1498550744921-75f79806b8a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1800&q=10',
+        'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1800&q=10'
+    ];
+    var image = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+
+    $('.zvc-animated-background').css('background-image','url('+image+')');
+    $('.zvc-animated-background').css('background-repeat','no-repeat');
+    $('.zvc-animated-background').css('background-size','cover');
+
     $(".alert").fadeTo(3000, 500).slideUp(500, function(){
         $(".alert").alert('close');
     });
@@ -181,8 +195,12 @@ $(document).ready(function() {
 
     if (isWindows) {
         // if we are on windows OS we activate the perfectScrollbar function
-        var ps = new PerfectScrollbar('.main-panel');
-        var ps1 = new PerfectScrollbar('.sidebar .sidebar-wrapper');
+        if ( $( '.main-panel' ).length ) {
+            var ps = new PerfectScrollbar('.main-panel');
+        }
+        if ( $( '.sidebar' ).length ) {
+            var ps1 = new PerfectScrollbar('.sidebar .sidebar-wrapper');
+        }
         $('.table-responsive').each(function() {
             var ps2 = new PerfectScrollbar($(this)[0]);
         });
