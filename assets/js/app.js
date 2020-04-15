@@ -9,13 +9,23 @@
 import '../css/app.css';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
-/*import $ from 'jquery';
+import $ from 'jquery';
 global.$ = $;
+global.jQuery = $;
+import 'popper.js';
 import 'bootstrap';
-import 'bootstrap-notify';
-import PerfectScrollbar from 'perfect-scrollbar';
-import Chart from 'chart.js';*/
-
+import './backoffice-theme/app'
+import './backoffice-theme/app.init.dark'
+import './backoffice-theme/app-style-switcher'
+import './backoffice-theme/waves'
+import './backoffice-theme/sidebarmenu'
+import './backoffice-theme/custom.min'
+import 'perfect-scrollbar';
+import 'chartist';
+import 'chartist-plugin-tooltips';
+import 'raphael';
+import 'morris.js'
+import './backoffice-theme/dashboard1'
 
 // CODES START HERE
 $(document).ready(function() {

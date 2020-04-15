@@ -1,3 +1,8 @@
+@import '~chartist/dist/chartist.min.css';
+@import '~morris.js/morris.css';
+@import 'backoffice-theme/style.css';
+@import '~bootstrap/dist/css/bootstrap.css';
+
 
 @media screen and (min-width: 768px) {
     
