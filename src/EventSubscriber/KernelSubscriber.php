@@ -4,6 +4,7 @@
 namespace App\EventSubscriber;
 
 
+use App\Service\SystemManager;
 use App\Service\ZavocaMessages;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -21,13 +22,15 @@ class KernelSubscriber implements EventSubscriberInterface
     protected $em;
     protected $session;
     protected $zavocaMessages;
+    protected $systemManager;
 
-    public function __construct(EntityManagerInterface $em, Security $security, SessionInterface $session, ZavocaMessages $zavocaMessages)
+    public function __construct(EntityManagerInterface $em, Security $security, SessionInterface $session, ZavocaMessages $zavocaMessages, SystemManager $systemManager)
     {
         $this->security = $security;
         $this->em = $em;
         $this->session = $session;
         $this->zavocaMessages = $zavocaMessages;
+        $this->systemManager = $systemManager;
     }
 
     public static function getSubscribedEvents()
@@ -57,6 +60,12 @@ class KernelSubscriber implements EventSubscriberInterface
     {
         //$request = $event->getRequest();
         $this->manageZavocaMessages();
+        $this->setSystemAsGlobalTwig();
+    }
+
+    protected function setSystemAsGlobalTwig()
+    {
+        $this->systemManager->addTwigGlobals();
     }
 
     protected function manageZavocaMessages()

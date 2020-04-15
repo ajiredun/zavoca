@@ -3,23 +3,79 @@
 {% block content %}
     <div class="row">
         <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Notifications Style</h2>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                <i class="fab fa-dribbble"></i>
+            <h2 class="card-title">Notifications Style</h2>
+
+            <!-- Nav tabs -->
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#home2">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('zvc_test') }}">Menu 1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#menu22">Menu 2</a>
+                </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane active" id="home2">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Card title Home</h4>
+                                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <a href="#" class="card-link">Card link</a>
+                                    <a href="#" class="card-link">Another link</a>
+                                </div>
                             </div>
+
+
                         </div>
-                        <input type="text" class="form-control" placeholder="With Font Awesome Icons">
+                    </div>
+                </div>
+                <div class="tab-pane" id="menu12">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Card title MENU 1</h4>
+                                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <a href="#" class="card-link">Card link</a>
+                                    <a href="#" class="card-link">Another link</a>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="menu22">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Card title MENU 2</h4>
+                                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <a href="#" class="card-link">Card link</a>
+                                    <a href="#" class="card-link">Another link</a>
+                                </div>
+                            </div>
+
+
+                        </div>
                     </div>
                 </div>
             </div>
+
+
+
+
         </div>
     </div>
 {% endblock %}
