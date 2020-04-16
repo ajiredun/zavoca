@@ -70,9 +70,10 @@ $(function() {
   // ==============================================================
   // Perfact scrollbar
   // ==============================================================
-  $('.message-center, .customizer-body, .scrollable').perfectScrollbar({
-    wheelPropagation: !0
-  });
+  new PerfectScrollbar('.message-center',{wheelPropagation: !0});
+  new PerfectScrollbar('.customizer-body',{wheelPropagation: !0});
+  new PerfectScrollbar('.scrollable',{wheelPropagation: !0});
+
 
   /*var ps = new PerfectScrollbar('.message-body');
     var ps = new PerfectScrollbar('.notifications');
@@ -130,27 +131,6 @@ $(function() {
   $(document).on('click', '.mega-dropdown', function(e) {
     e.stopPropagation();
   });
-  // ==============================================================
-  // Last month earning
-  // ==============================================================
-  var sparklineLogin = function() {
-    $('.lastmonth').sparkline([6, 10, 9, 11, 9, 10, 12], {
-      type: 'bar',
-      height: '35',
-      barWidth: '4',
-      width: '100%',
-      resize: true,
-      barSpacing: '8',
-      barColor: '#2961ff'
-    });
-  };
-  var sparkResize;
-
-  $(window).resize(function(e) {
-    clearTimeout(sparkResize);
-    sparkResize = setTimeout(sparklineLogin, 500);
-  });
-  sparklineLogin();
 
   // ==============================================================
   // This is for the innerleft sidebar

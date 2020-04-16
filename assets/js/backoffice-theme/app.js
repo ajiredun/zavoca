@@ -57,7 +57,7 @@ $.fn.AdminSettings = function (settings) {
                 break;
             case 'vertical':
                 $('#' + myid).attr("data-layout", "vertical");
-                $('.scroll-sidebar').perfectScrollbar({ });
+                var ps = new PerfectScrollbar('.scroll-sidebar');
                 break;
             default:
             }
