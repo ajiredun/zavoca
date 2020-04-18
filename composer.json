@@ -46,6 +46,7 @@
     },
     "autoload": {
         "psr-4": {
+            "Zavoca\\CoreBundle\\": "zavoca/CoreBundle/src/",
             "App\\": "src/"
         }
     },

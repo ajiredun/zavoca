@@ -1,8 +1,10 @@
-{% extends 'plain_base.html.twig' %}
+{% extends 'zavoca/core/plain_card_center.html.twig' %}
 
-{% block right %}
+{% block title %}404{% endblock %}
 
+{% block box_title %}<br/><br/>{% endblock %}
 
+{% block form %}
     <div class="row">
         <div class="col-12">
             <div class="card bg-transparent text-center">
@@ -12,7 +14,7 @@
                 <div class="card-body text-center">
                     <p>
                         The requested page couldn't be located. Checkout for any URL
-                        misspelling or <a href="{{ path('homepage') }}">return to the homepage</a>.
+                        misspelling or <a href="{{ path('zavoca_core_main') }}">return to the homepage</a>.
                     </p>
                 </div>
             </div>

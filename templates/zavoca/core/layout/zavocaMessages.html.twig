@@ -1,0 +1,43 @@
+{% block zavocaMessages %}
+    {% if zavoca_messages is defined and zavoca_messages.messages is defined %}
+        {% if zavoca_messages.messages.zavoca_success is defined and zavoca_messages.messages.zavoca_success is not empty %}
+            {% for message in zavoca_messages.messages.zavoca_success %}
+                <div class="alert alert-success alert-dismissible alert-rounded alert-fade">
+                    <span>{{ message }}</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% if zavoca_messages.messages.zavoca_info is defined and zavoca_messages.messages.zavoca_info is not empty %}
+            {% for message in zavoca_messages.messages.zavoca_info %}
+                <div class="alert alert-info alert-dismissible alert-rounded alert-fade">
+                    <span>{{ message }}</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% if zavoca_messages.messages.zavoca_warning is defined and zavoca_messages.messages.zavoca_warning is not empty %}
+            {% for message in zavoca_messages.messages.zavoca_warning %}
+                <div class="alert alert-warning alert-dismissible alert-rounded alert-fade">
+                    <span>{{ message }}</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% if zavoca_messages.messages.zavoca_error is defined and zavoca_messages.messages.zavoca_error is not empty %}
+            {% for message in zavoca_messages.messages.zavoca_error %}
+                <div class="alert alert-danger alert-dismissible alert-rounded alert-fade">
+                    <span>{{ message }}</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+    <div class="alert alert-warning">
+        You are currently switched to another user.
+        <a href="{{ path('zavoca_core_main', {'_switch_user': '_exit'}) }}">Exit Impersonation</a>
+    </div>
+{% endif %}

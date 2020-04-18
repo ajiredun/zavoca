@@ -1,3 +1,7 @@
+zavoca_core_controllers:
+    resource: ../../zavoca/CoreBundle/src/Controller/
+    type: annotation
+
 controllers:
     resource: ../../src/Controller/
     type: annotation

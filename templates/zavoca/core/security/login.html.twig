@@ -1,0 +1,67 @@
+{% extends 'zavoca/core/plain_card_center.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+
+{% block form %}
+
+    <form class="form-horizontal m-t-20" method="post">
+
+        {% if error %}
+            <div class="alert alert-warning alert-rounded">
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.username }}, <a
+                        href="{{ path('zavoca_core_logout') }}">Logout</a>
+            </div>
+        {% else %}
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                </div>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" aria-label="Email"
+                       class="form-control  form-control-lg" required placeholder="Email">
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon2"><i class="fas fa-key"></i></span>
+                </div>
+                <input id="inputPassword" type="password" name="password" class="form-control" required
+                       placeholder="Password">
+
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="remember_me" name="_remember_me">
+                        <label class="custom-control-label" for="remember_me">Remember me</label>
+                        <a href="{{ path('zavoca_core_forget_password') }}" id="to-recover" class="text-dark float-right"><i
+                                    class="fa fa-lock m-r-5"></i> Forgot password?</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                <div class="col-xs-12 p-b-20">
+                    <button class="btn btn-block btn-lg btn-success" type="submit">Log In</button>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="form-group m-b-0 m-t-10">
+            <div class="col-sm-12 text-center">
+                Don't have an account? <a href="{{ path('zavoca_core_register') }}" class="text-info m-l-5"><b>Register</b></a>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}
