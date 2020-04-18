@@ -10,7 +10,7 @@ import '../css/app.css';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 import $ from 'jquery';
-//global.$ = $;
+global.$ = $;
 //global.jQuery = $;
 import 'popper.js';
 import 'bootstrap';
@@ -33,5 +33,8 @@ import './backoffice-theme/dashboard1'
 
 // CODES START HERE
 $(document).ready(function() {
-
+    //ALERTS
+    setTimeout(function () {
+        $('.alert-fade').fadeOut();
+    },3000);
 });

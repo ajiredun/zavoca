@@ -1,16 +1,14 @@
-{% extends 'plain_card_base.html.twig' %}
+{% extends 'plain_card_center.html.twig' %}
 
 {% block title %}Create Account{% endblock %}
 
+{% block auth_style %}style="margin-top:2%;margin-bottom:2%;"{% endblock %}
 
-{% block card_header %} 
-    <img id="zvc-logo" style="max-width:150px;" src="{{ asset('build/logo.png') }}" alt="Logo">
-    <h2 class="card-title">Register</h2>
+{% block box_title %}
+    <h5 class="font-medium m-b-20">Register</h5>
 {% endblock %}
 
-
-{% block card_body %}
-
+{% block form %}
     {% if app.user %}
         <div class="mb-3">
             You are logged in as {{ app.user.username }}, <a
@@ -19,81 +17,72 @@
     {% else %}
         <form method="post">
             {% if error %}
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <div class="alert alert-danger alert-rounded">
                     {{ error }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <i class="tim-icons icon-simple-remove"></i>
-                    </button>
                 </div>
             {% endif %}
 
             {% if success %}
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ success }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <i class="tim-icons icon-simple-remove"></i>
-                    </button>
+                <div class="alert alert-success alert-rounded">
+                    {{ error }}
                 </div>
             {% endif %}
 
-
-            <div class="form-group">
-                <input type="text" class="form-control" name="inputFirstname" value="{{ inputFirstname }}" required autofocus placeholder="Name">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control  form-control-lg" name="inputFirstname" value="{{ inputFirstname }}" required autofocus placeholder="Name">
             </div>
 
-            <div class="form-group">
-                <input type="text" class="form-control" name="inputLastname" value="{{ inputLastname }}" required autofocus placeholder="Surname">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control  form-control-lg" name="inputLastname" value="{{ inputLastname }}" required autofocus placeholder="Surname">
             </div>
 
-            <div class="input-group">
+            <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <div class="input-group-text">
-                        <i class="fas fa-user"></i>
+                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                </div>
+                <input type="email" name="inputEmail" class="form-control  form-control-lg" required autofocus value="{{ inputEmail }}" placeholder="Email">
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+                </div>
+                <input type="password" name="inputPassword" class="form-control  form-control-lg" required placeholder="Password">
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+                </div>
+                <input type="password" name="inputConfirmPassword" class="form-control  form-control-lg" required placeholder="Confirm Password">
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="terms" required="required" name="terms">
+                        <label class="custom-control-label" for="terms">I agree with the terms and conditions</label>
+
                     </div>
                 </div>
-                <input type="email" name="inputEmail" class="form-control" required autofocus value="{{ inputEmail }}" placeholder="Email">
             </div>
 
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">
-                        <i class="fas fa-key"></i>
-                    </div>
+            <div class="form-group text-center">
+                <div class="col-xs-12 p-b-20">
+                    <button class="btn btn-block btn-lg btn-info" type="submit">Register</button>
                 </div>
-                <input type="password" name="inputPassword" class="form-control" required placeholder="Password">
             </div>
 
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">
-                        <i class="fas fa-key"></i>
-                    </div>
+            <div class="input-group mb-3 m-b-0 m-t-10">
+                <div class="col-sm-12 text-center">
+                    Forgot Password? <a href="{{ path('app_forget_password') }}" class="text-info m-l-5"><b>Reset</b></a>
                 </div>
-                <input type="password" name="inputConfirmPassword" class="form-control" required placeholder="Confirm Password">
+
+                <div class="col-sm-12 text-center">
+                    Already have an account? <a href="{{ path('app_login') }}" class="text-info m-l-5"><b>Login</b></a>
+                </div>
             </div>
-
-            <div class="form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox" required name="terms" />
-                    I agree with the terms and conditions
-                    <span class="form-check-sign"><span class="check"></span></span>
-                </label>
-            </div>
-
-
-            <button class="btn btn-lg btn-primary btn-block" type="submit">
-                Register
-            </button>
         </form>
     {% endif %}
-{% endblock %}
-
-
-{% block card_footer %}
-    <a href="{{ path('app_login') }}" class="btn btn-sm btn-success btn-simple">
-        <i class="fas fa-user"></i> &nbsp;&nbsp; Sign In
-    </a>
-    <a href="{{ path('app_forget_password') }}" class="btn btn-sm btn-info btn-simple">
-        <i class="fas fa-unlock"></i> &nbsp;&nbsp; Forgot Password ?
-    </a>
 {% endblock %}

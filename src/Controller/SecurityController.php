@@ -35,11 +35,8 @@ class SecurityController extends AbstractController
      */
     public function register(Request $request, UserManager $userManager): Response
     {
-
         $error = null;
         $success = null;
-
-
         if (
         $request->isMethod('POST')
         ) {

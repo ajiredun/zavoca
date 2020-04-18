@@ -5,6 +5,22 @@
 @import '~perfect-scrollbar/css/perfect-scrollbar.css';
 
 
+.auth_logo {
+    width: 95px;
+}
+
+.logo-nav {
+    width: 40px;
+}
+
+.logo-nav-text {
+    width: 100px;
+}
+
+.auth-box {
+    border-radius: 5px;
+}
+
 @media screen and (min-width: 768px) {
     
 }

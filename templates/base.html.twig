@@ -1,134 +1,375 @@
 <!DOCTYPE html>
-<html lang="en">
+<html dir="ltr" lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Zavoca Back Office">
+    <meta name="author" content="Ajir Edun">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('build/favicon.ico') }}">
     <title>{% block title %}Hello{% endblock %} - Zavoca</title>
+
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
-        <!--     Fonts and icons     -->
-        <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
         <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     {% endblock %}
     {% block css %}{% endblock %}
 </head>
-<body {% if app.user is defined and app.user and not app.user.darkTheme %}class="white-content"{% endif %}>
+
+<body>
 {% block whole %}
-    <div class="wrapper ">
-        {% block wrapper %}
-            {% block sidebar_container %}
-                <div class="sidebar">
-                    {% block sidebar_wrapper %}
-                        <div class="sidebar-wrapper">
-                            <ul class="nav">
-                                {% block sidebar_nav %}
-                                    {% include 'layout/sidebar.html.twig' %}
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+
+    {% block wrapper %}
+        <div id="main-wrapper">
+            {% block navbar_container %}
+                <header class="topbar">
+                    <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                        <div class="navbar-header">
+                            <!-- This is for the sidebar toggle which is visible on mobile only -->
+                            <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">
+                                <i class="ti-menu ti-close"></i>
+                            </a>
+                            <!-- ============================================================== -->
+                            <!-- Logo -->
+                            <!-- ============================================================== -->
+                            <a class="navbar-brand" href="index.html">
+                                <!-- Logo icon -->
+                                <b class="logo-icon">
+                                    <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                                    <!-- Dark Logo icon -->
+                                    <img src="{{ asset('build/icon.png') }}" alt="Zavoca" class="logo-nav dark-logo"/>
+                                    <!-- Light Logo icon -->
+                                    <img src="{{ asset('build/icon_light.png') }}" alt="Zavoca" class="logo-nav light-logo"/>
+                                </b>
+                                <!--End Logo icon -->
+                                <!-- Logo text -->
+                                <span class="logo-text">
+                                    <!-- dark Logo text -->
+                                    <img class="logo-nav-text dark-logo" src="{{ asset('build/logo.png') }}" />
+                                    <!-- Light Logo text -->
+                                    <img class="logo-nav-text light-logo" src="{{ asset('build/logo_light.png') }}" />
+                                </span>
+                            </a>
+                            <!-- ============================================================== -->
+                            <!-- End Logo -->
+                            <!-- ============================================================== -->
+                            <!-- ============================================================== -->
+                            <!-- Toggle which is visible on mobile only -->
+                            <!-- ============================================================== -->
+                            <a class="topbartoggler d-block d-md-none waves-effect waves-light"
+                               href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent"
+                               aria-controls="navbarSupportedContent" aria-expanded="false"
+                               aria-label="Toggle navigation">
+                                <i class="ti-more"></i>
+                            </a>
+                        </div>
+                        <!-- ============================================================== -->
+                        <!-- End Logo -->
+                        <!-- ============================================================== -->
+                        <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                            <!-- ============================================================== -->
+                            <!-- toggle and nav items -->
+                            <!-- ============================================================== -->
+                            <ul class="navbar-nav float-left mr-auto">
+                                <li class="nav-item d-none d-md-block">
+                                    <a class="nav-link sidebartoggler waves-effect waves-light"
+                                       href="javascript:void(0)" data-sidebartype="mini-sidebar">
+                                        <i class="sl-icon-menu font-20"></i>
+                                    </a>
+                                </li>
+                                {% block navbar_left %}
+                                    {% include 'layout/navbar_left.html.twig' %}
+                                {% endblock %}
+                            </ul>
+                            <!-- ============================================================== -->
+                            <!-- Right side toggle and nav items -->
+                            <!-- ============================================================== -->
+                            <ul class="navbar-nav float-right">
+
+                                {% block navbar_right %}
+                                    {% include 'layout/navbar_right.html.twig' %}
                                 {% endblock %}
                             </ul>
                         </div>
-                    {% endblock %}
-                </div>
+                    </nav>
+                </header>
+            {% endblock %}
+            {% block sidebar_container %}
+                <aside class="left-sidebar">
+                    <!-- Sidebar scroll-->
+                    <div class="scroll-sidebar">
+                        {% block sidebar_wrapper %}
+                            <!-- Sidebar navigation-->
+                            <nav class="sidebar-nav">
+                                <ul id="sidebarnav">
+                                    {% block sidebar_nav %}
+                                        {% include 'layout/sidebar.html.twig' %}
+                                    {% endblock %}
+                                </ul>
+                            </nav>
+                            <!-- End Sidebar navigation -->
+                        {% endblock %}
+                    </div>
+                    <!-- End Sidebar scroll -->
+                </aside>
             {% endblock %}
             {% block main_container %}
-                <div class="main-panel">
-                    {% block main_wrapper %}
-                        {% block navbar_container %}
-                            <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
-                                <div class="container-fluid">
-                                    <div class="navbar-wrapper">
-                                        <div class="navbar-toggle d-inline">
-                                            <button type="button" class="navbar-toggler">
-                                                <span class="navbar-toggler-bar bar1"></span>
-                                                <span class="navbar-toggler-bar bar2"></span>
-                                                <span class="navbar-toggler-bar bar3"></span>
-                                            </button>
+                <div class="page-wrapper">
+                    {% block content_container %}
+                        {% block breadcrumb_container %}
+                            <div class="page-breadcrumb">
+                                <div class="row">
+                                    <div class="col-5 align-self-center">
+                                        <h4 class="page-title">Dashboard</h4>
+                                        <div class="d-flex align-items-center">
+
                                         </div>
-                                        <a class="navbar-brand" href="/">
-                                            <img id="zvc-logo" src="{{ asset('build/logo.png') }}" alt="Logo" title="Zavoca">
-                                        </a>
                                     </div>
-                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                                        <span class="navbar-toggler-bar navbar-kebab"></span>
-                                        <span class="navbar-toggler-bar navbar-kebab"></span>
-                                        <span class="navbar-toggler-bar navbar-kebab"></span>
-                                    </button>
-                                    <div class="collapse navbar-collapse" id="navigation">
-                                        {% block navbar %}
-                                            {% include 'layout/navbar.html.twig' %}
+                                    <div class="col-7 align-self-center">
+                                        <div class="d-flex no-block justify-content-end align-items-center">
+                                            <nav aria-label="breadcrumb">
+                                                <ol class="breadcrumb">
+                                                    <li class="breadcrumb-item">
+                                                        <a href="#">Home</a>
+                                                    </li>
+                                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
+                                                </ol>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endblock %}
+
+                        {% block content_wrapper %}
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-12">
+                                        {% block zavocaMessages %}
+                                            {% include 'layout/zavocaMessages.html.twig' %}
                                         {% endblock %}
                                     </div>
                                 </div>
-                            </nav>
-                        {% endblock %}
-                        {% block content_container %}
-                            <div class="content">
-                                {% block content_wrapper %}
+                                {% block content %}
+
                                     <div class="row">
-                                        <div class="col-12">
-                                            {% block zavocaMessages %}
-                                                {% include 'layout/zavocaMessages.html.twig' %}
-                                            {% endblock %}
-                                        </div>
-                                    </div>
-                                    {% block content %}
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <p class="text-muted">You should override content block</p>
+                                        <div class="col-sm-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <!-- title -->
+                                                    <div class="d-md-flex align-items-center">
+                                                        <div>
+                                                            <h4 class="card-title">You should override content
+                                                                block</h4>
+                                                        </div>
                                                     </div>
+                                                    <!-- title -->
                                                 </div>
                                             </div>
                                         </div>
-                                    {% endblock %}
+                                    </div>
                                 {% endblock %}
                             </div>
                         {% endblock %}
-                        {% block footer_container %}
-                            <footer class="footer">
-                                <div class="container-fluid">
-                                    {% block footer %}
-                                        {% include 'layout/footer.html.twig' %}
-                                    {% endblock %}
-                                    <div class="copyright float-right">
-                                        ©
-                                        <script>
-                                            document.write(new Date().getFullYear())
-                                        </script> made with <i class="tim-icons icon-heart-2"></i> by
-                                        <a href="https://www.ajiredun.com" target="_blank">Ajir Edun
-                            </footer>
-                        {% endblock %}
+                    {% endblock %}
+                    {% block footer_container %}
+                        <footer class="footer text-center">
+                            {% block footer %}
+                                {% include 'layout/footer.html.twig' %}
+                            {% endblock %}
+                        </footer>
                     {% endblock %}
                 </div>
             {% endblock %}
-        {% endblock %}
-    </div>
-    <div class="fixed-plugin">
-        <div class="dropdown show-dropdown">
-            <a href="#" data-toggle="dropdown">
-                <i class="fa fa-cog fa-2x"> </i>
-            </a>
-            <ul class="dropdown-menu">
-                {% block fixed_plugin %}
-                    <li class="header-title">Mode</li>
-                    <li class="adjustments-line text-center color-change">
-                        <span class="color-label">LIGHT MODE</span>
-                        <span class="badge light-badge mr-2"></span>
-                        <span class="badge dark-badge ml-2"></span>
-                        <span class="color-label">DARK MODE</span>
-                    </li>
-                {% endblock %}
-            </ul>
         </div>
-    </div>
+    {% endblock %}
+
+    {% block customizer %}
+        <aside class="customizer">
+            <a href="javascript:void(0)" class="service-panel-toggle">
+                <i class="fa fa-spin fa-cog"></i>
+            </a>
+            <div class="customizer-body">
+                <ul class="nav customizer-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab
+                                   " aria-controls="pills-home" aria-selected="true">
+                            <i class="mdi mdi-wrench font-20"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#chat" role="tab
+                                   " aria-controls="chat" aria-selected="false">
+                            <i class="mdi mdi-message-reply font-20"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab
+                                   " aria-controls="pills-contact" aria-selected="false">
+                            <i class="mdi mdi-star-circle font-20"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <!-- Tab 1 -->
+                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                         aria-labelledby="pills-home-tab">
+                        <div class="p-15 border-bottom">
+                            <!-- Sidebar -->
+                            <h5 class="font-medium m-b-10 m-t-10">Layout Settings</h5>
+                            <div class="custom-control custom-checkbox m-t-10">
+                                <input type="checkbox" class="custom-control-input" name="theme-view" id="theme-view">
+                                <label class="custom-control-label" for="theme-view">Dark Theme</label>
+                            </div>
+                            <div class="custom-control custom-checkbox m-t-10">
+                                <input type="checkbox" class="custom-control-input sidebartoggler" name="collapssidebar
+                                   " id="collapssidebar">
+                                <label class="custom-control-label" for="collapssidebar">Collapse Sidebar</label>
+                            </div>
+                            <div class="custom-control custom-checkbox m-t-10">
+                                <input type="checkbox" class="custom-control-input" name="sidebar-position"
+                                       id="sidebar-position">
+                                <label class="custom-control-label" for="sidebar-position">Fixed Sidebar</label>
+                            </div>
+                            <div class="custom-control custom-checkbox m-t-10">
+                                <input type="checkbox" class="custom-control-input" name="header-position"
+                                       id="header-position">
+                                <label class="custom-control-label" for="header-position">Fixed Header</label>
+                            </div>
+                            <div class="custom-control custom-checkbox m-t-10">
+                                <input type="checkbox" class="custom-control-input" name="boxed-layout"
+                                       id="boxed-layout">
+                                <label class="custom-control-label" for="boxed-layout">Boxed Layout</label>
+                            </div>
+                        </div>
+                        <div class="p-15 border-bottom">
+                            <!-- Logo BG -->
+                            <h5 class="font-medium m-b-10 m-t-10">Logo Backgrounds</h5>
+                            <ul class="theme-color">
+                                <li class="theme-item">
+                                    <a href="javascript:void(0)" class="theme-link" data-logobg="skin1"></a>
+                                </li>
+                                <li class="theme-item">
+                                    <a href="javascript:void(0)" class="theme-link" data-logobg="skin2"></a>
+                                </li>
+                                <li class="theme-item">
+                                    <a href="javascript:void(0)" class="theme-link" data-logobg="skin3"></a>
+                                </li>
+                                <li class="theme-item">
+                                    <a href="javascript:void(0)" class="theme-link" data-logobg="skin4"></a>
+                                </li>
+                                <li class="theme-item">
+                                    <a href="javascript:void(0)" class="theme-link" data-logobg="skin5"></a>
+                                </li>
+                                <li class="theme-item">
+                                    <a href="javascript:void(0)" class="theme-link" data-logobg="skin6"></a>
+                                </li>
+                            </ul>
+                            <!-- Logo BG -->
+                        </div>
+                        <div class="p-15 border-bottom">
+                            <!-- Navbar BG -->
+                            <h5 class="font-medium m-b-10 m-t-10">Navbar Backgrounds</h5>
+                            <ul class="theme-color">
+                                <li class="theme-item">
+                                    <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin1"></a>
+                                </li>
+                                <li class="theme-item">
+                                    <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin2"></a>
+                                </li>
+                                <li class="theme-item">
+                                    <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin3"></a>
+                                </li>
+                                <li class="theme-item">
+                                    <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin4"></a>
+                                </li>
+                                <li class="theme-item">
+                                    <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin5"></a>
+                                </li>
+                                <li class="theme-item">
+                                    <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin6"></a>
+                                </li>
+                            </ul>
+                            <!-- Navbar BG -->
+                        </div>
+                        <div class="p-15 border-bottom">
+                            <!-- Logo BG -->
+                            <h5 class="font-medium m-b-10 m-t-10">Sidebar Backgrounds</h5>
+                            <ul class="theme-color">
+                                <li class="theme-item">
+                                    <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin1"></a>
+                                </li>
+                                <li class="theme-item">
+                                    <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin2"></a>
+                                </li>
+                                <li class="theme-item">
+                                    <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin3"></a>
+                                </li>
+                                <li class="theme-item">
+                                    <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin4"></a>
+                                </li>
+                                <li class="theme-item">
+                                    <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin5"></a>
+                                </li>
+                                <li class="theme-item">
+                                    <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin6"></a>
+                                </li>
+                            </ul>
+                            <!-- Logo BG -->
+                        </div>
+                    </div>
+                    <!-- End Tab 1 -->
+                    <!-- Tab 2 -->
+                    <div class="tab-pane fade" id="chat" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <h6 class="m-t-20 m-b-20">TO DO</h6>
+                    </div>
+                    <!-- End Tab 2 -->
+                    <!-- Tab 3 -->
+                    <div class="tab-pane fade p-15" id="pills-contact" role="tabpanel"
+                         aria-labelledby="pills-contact-tab">
+                        <h6 class="m-t-20 m-b-20">TO DODO</h6>
+                    </div>
+                    <!-- End Tab 3 -->
+                </div>
+            </div>
+        </aside>
+        <div class="chat-windows"></div>
+    {% endblock %}
+
 {% endblock %}
+
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
-    {#<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>#}
-    {#<script src="{{ asset('assets/admin/js/Sortable.min.js') }}"></script>
-    <script src="{{ asset('assets/admin/js/rf.js') }}?v=1.1.0"></script>#}
 {% endblock %}
+
+<script>
+    $(document).ready(function () {
+
+        $('#theme-view').prop("checked",
+                {% if app.user is defined and app.user and app.user.darkTheme %}true{% else %}false{% endif %} );
+        $('body').attr(
+            "data-theme",
+                {% if app.user is defined and app.user and app.user.darkTheme %}'dark'
+        {% else %}'light'{% endif %} )
+    });
+</script>
+
 {% block js %}{% endblock %}
 </body>
+
 </html>
