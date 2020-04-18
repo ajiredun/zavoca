@@ -21,6 +21,7 @@ class AppController extends AbstractZavocaController
     public function test(ZavocaMessagesInterface $zavocaMessages)
     {
 
+        dd(Roles::getLabel(Roles::ROLE_OVERRIDE));
         $zavocaMessages->addWarning('Redirected from APP BUNDLE /test to /');
 
         return $this->redirectToRoute('zavoca_core_main');

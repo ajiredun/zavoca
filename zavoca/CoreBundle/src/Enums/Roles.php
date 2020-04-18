@@ -4,8 +4,11 @@
 namespace Zavoca\CoreBundle\Enums;
 
 
-class Roles
+class Roles extends \App\Enums\Core\Roles
 {
+    use BaseEnumTrait;
+
+
     //BASIC
     const ROLE_ADMIN = 'ROLE_ADMIN';
     const ROLE_USER = 'ROLE_USER';
@@ -25,27 +28,10 @@ class Roles
     const ROLE_API_USER = "ROLE_API_USER";
 
 
-    static function getLabel($role)
-    {
-        $list = Roles::getList();
-        if (array_key_exists($role, $list)) {
-            return $list[$role];
-        }
-        return '';
-    }
-
-    static function roleExist($role)
-    {
-        $list = Roles::getList();
-        if (array_key_exists($role, $list)) {
-            return true;
-        }
-        return false;
-    }
 
     static function getList()
     {
-        return [
+        $list =  [
             Roles::ROLE_ADMIN => "Admin" ,
             Roles::ROLE_USER => 'Website User',
             Roles::ROLE_VIEWER => 'Back Office User',
@@ -55,24 +41,30 @@ class Roles
             Roles::ROLE_BO_SETTINGS => "Back Office Settings",
             Roles::ROLE_API_USER => "Anonymous Web User",
         ];
+
+        return array_merge(parent::getList(),$list);
     }
 
     static function getConfigurableList()
     {
-        return [
-            Roles::ROLE_ADMIN => "Admin" ,
-            Roles::ROLE_VIEWER => 'Back Office User',
-            Roles::ROLE_USER_MANAGEMENT_EDITOR => "User Manager",
-            Roles::ROLE_ROLES_MANAGEMENT => "Role Manager",
-            Roles::ROLE_BO_SETTINGS => "Back Office Settings",
+        $list =  [
+            Roles::ROLE_ADMIN => self::getLabel(Roles::ROLE_ADMIN) ,
+            Roles::ROLE_VIEWER => self::getLabel(Roles::ROLE_VIEWER),
+            Roles::ROLE_USER_MANAGEMENT_EDITOR => self::getLabel(Roles::ROLE_USER_MANAGEMENT_EDITOR),
+            Roles::ROLE_ROLES_MANAGEMENT => self::getLabel(Roles::ROLE_ROLES_MANAGEMENT),
+            Roles::ROLE_BO_SETTINGS => self::getLabel(Roles::ROLE_BO_SETTINGS),
         ];
+
+        return array_merge(parent::getConfigurableList(),$list);
     }
 
     static function getFOList()
     {
-        return [
-            Roles::ROLE_USER => 'Website User'
+        $list = [
+            Roles::ROLE_USER => self::getLabel(Roles::ROLE_USER)
         ];
+
+        return array_merge(parent::getFOList(),$list);
     }
 
     static function getFOListForm()
