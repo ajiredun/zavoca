@@ -1,0 +1,19 @@
+{% extends 'zavoca/core/base.html.twig' %}
+
+{% block content %}
+    <div class="card-group">
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Change System Setting</h4>
+                <h6 class="card-subtitle mb-2 text-muted">Testing lol</h6>
+
+                {{ changeSystemSettingsFlow | raw }}
+
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="javascript:void(0)" class="card-link">Card link</a>
+                <a href="javascript:void(0)" class="card-link">Another link</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
