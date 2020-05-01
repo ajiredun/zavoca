@@ -6,7 +6,6 @@ namespace Zavoca\CoreBundle\Enums;
 
 class Features extends \App\Enums\Core\Features
 {
-    use BaseEnumTrait;
 
     const USER_AUTH_FORGET_PASSWORD = 'USER_AUTH_FORGET_PASSWORD';
     const USER_AUTH_ACCOUNT_CREATION = 'USER_AUTH_ACCOUNT_CREATION';

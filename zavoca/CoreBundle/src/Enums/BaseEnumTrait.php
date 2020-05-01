@@ -5,12 +5,12 @@ namespace Zavoca\CoreBundle\Enums;
 trait BaseEnumTrait {
     static function getConstants()
     {
-        return array_keys(self::getList());
+        return array_keys(static::getList());
     }
 
     static function getLabel($key)
     {
-        $list = self::getList();
+        $list = static::getList();
         if (array_key_exists($key, $list)) {
             return $list[$key];
         }
@@ -19,7 +19,7 @@ trait BaseEnumTrait {
 
     static function isExist($key)
     {
-        $list = self::getList();
+        $list = static::getList();
         if (array_key_exists($key, $list)) {
             return true;
         }

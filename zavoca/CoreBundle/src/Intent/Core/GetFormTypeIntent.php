@@ -29,22 +29,22 @@ class GetFormTypeIntent extends AbstractIntent
     public function execute()
     {
         $formClass = $this->get('zavoca_form_class');
-        $formData = $this->get('zavoca_form_data');
+        $formData = $this->get('zavoca_form_entity');
         $formOptions = $this->get('zavoca_form_options');
 
         $form = $this->formFactory->create(
             $formClass,
             $formData === null ? [] : $formData,
-            $formOptions === null ? [] : $formOptions
+            $formOptions === null ? ['attr' => ['class' => 'form-horizontal form-material  r-separator']] : $formOptions
         );
 
-        $this->set('zavoca_form', $form->createView());
+        $this->set('zavoca_form', $form);
     }
 
     public function inputDefinition()
     {
         return array_merge($this->getInputMandatoryDef(),[
-            'zavoca_form_data',
+            'zavoca_form_entity',
             'zavoca_form_options'
         ]);
     }

@@ -1,5 +1,5 @@
 <div class="card flow-error" style="border:10px solid red;">
-    <div class="card-header">
+    <div class="card-header text-danger">
         Flow Error
     </div>
     <div class="card-body">
@@ -7,12 +7,12 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#error_flow" role="tab"><span
-                            class="hidden-sm-up"></span> <span class="hidden-xs-down">Object Error</span></a></li>
+                            class="hidden-sm-up"></span> <span class="hidden-xs-down text-warning">Object Error</span></a></li>
             {% if exception %}
                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#error_message" role="tab"><span
-                                class="hidden-sm-up"></span> <span class="hidden-xs-down">Error Message</span></a></li>
+                                class="hidden-sm-up"></span> <span class="hidden-xs-down text-warning">Error Message</span></a></li>
                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#error_dump" role="tab"><span
-                                class="hidden-sm-up"></span> <span class="hidden-xs-down">Stack Trace</span></a></li>
+                                class="hidden-sm-up"></span> <span class="hidden-xs-down text-warning">Stack Trace</span></a></li>
             {% endif %}
         </ul>
         <!-- Tab panes -->
@@ -20,7 +20,7 @@
             <div class="tab-pane active  p-20" id="error_flow" role="tabpanel">
                 <br/>
                 <h6>Object causing the error: </h6>
-                <h4 class="card-title">{{ flow.getName() }}</h4>
+                <h4 class="card-title text-danger">{{ flow.getName() }}</h4>
                 <p class="card-text">
                     {#{{ dump(flow) }}#}
                 </p>
@@ -29,7 +29,7 @@
                 <div class="tab-pane p-20" id="error_message" role="tabpanel">
                     <br/>
                     <h6>Exception message: </h6>
-                    <h4 class="card-title">{{ exception.message }}</h4>
+                    <h4 class="card-title text-danger">{{ exception.message }}</h4>
                 </div>
             {% endif %}
             {% if exception %}

@@ -9,6 +9,13 @@ use Zavoca\CoreBundle\Event\IntentEvent;
 use Zavoca\CoreBundle\Utils\ZavocaParameterBag;
 use Zavoca\CoreBundle\Utils\ZavocaUtil;
 
+/**
+ * Class AbstractIntent
+ * @package Zavoca\CoreBundle\Intent
+ *
+ * ALWAYS USE OBJECTS AS PARAMETERS, NEVER USE IDs except for GetEntityByIds
+ *
+ */
 abstract class AbstractIntent implements IntentInterface
 {
     protected $inputDef = [];

@@ -1,0 +1,17 @@
+{% set tabs = flow.user_tabs %}
+{% set current = flow.user_tabs_active %}
+
+
+{% for tab in tabs %}
+    {% if current == tab.route %}
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="pill" href="#">{{ tab.name }}</a>
+        </li>
+    {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path(tab.route, tab.params) }}" >{{ tab.name }}</a>
+        </li>
+    {% endif %}
+{% endfor %}
+
+

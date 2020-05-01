@@ -3,10 +3,15 @@
 
 namespace App\Enums\Core;
 
+use Zavoca\CoreBundle\Enums\BaseEnumTrait;
+use Zavoca\CoreBundle\Enums\EnumInterface;
 use Zavoca\CoreBundle\Enums\Features as ZavocaFeatures;
 
-class Features
+class Features implements EnumInterface
 {
+    use BaseEnumTrait;
+
+
     static function getList()
     {
         $list = [];
@@ -20,4 +25,5 @@ class Features
 
         return $list;
     }
+
 }

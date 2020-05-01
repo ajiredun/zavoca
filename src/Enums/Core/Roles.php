@@ -2,10 +2,13 @@
 
 namespace App\Enums\Core;
 
+use Zavoca\CoreBundle\Enums\BaseEnumTrait;
 use Zavoca\CoreBundle\Enums\Roles as ZavocaRoles;
 
 class Roles
 {
+
+    use BaseEnumTrait;
 
     const ROLE_OVERRIDE = 'ROLE_OVERRIDE';
 

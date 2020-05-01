@@ -14,6 +14,13 @@ use Zavoca\CoreBundle\Intent\IntentInterface;
 use Zavoca\CoreBundle\Utils\ZavocaParameterBag;
 use Zavoca\CoreBundle\Utils\ZavocaUtil;
 
+/**
+ * Class AbstractFlow
+ * @package Zavoca\CoreBundle\Flow
+ *
+ * ALWAYS USE OBJECTS AS PARAMETERS, NEVER USE IDs except for GetEntityByIds
+ *
+ */
 abstract class AbstractFlow implements FlowInterface
 {
     protected $errorObject;
@@ -44,9 +51,37 @@ abstract class AbstractFlow implements FlowInterface
 
     public abstract function conversationPresentation();
 
-    public abstract function apiPresentation();
+    //public abstract function apiPresentation();
 
-    public abstract function ajaxPresentation();
+    //public abstract function ajaxPresentation();
+
+    public function apiPresentation()
+    {
+        return $this->naturalPresentation();
+    }
+
+    public function ajaxPresentation()
+    {
+        return $this->naturalPresentation();
+    }
+
+    /**
+     * @param $key
+     * @return bool|mixed|null
+     */
+    public function get($key)
+    {
+        if (array_key_exists($key, $this->parametersMapping)) {
+            $key = $this->parametersMapping[$key];
+        }
+
+        if (array_key_exists($key, $this->parameterBag->getParameters())) {
+
+            return $this->parameterBag->getParameter($key);
+        }
+
+        return null;
+    }
 
     /**
      * @throws FlowException
@@ -232,7 +267,7 @@ abstract class AbstractFlow implements FlowInterface
                 $value = $override[$value];
             }
 
-            if (!in_array($value, $inputDef) && !array_key_exists($value, $outputDef)) {
+            if (!in_array($value, $inputDef) && !in_array($value, $outputDef)) {
                 $inputDef[] = $value;
             }
         }
@@ -242,12 +277,21 @@ abstract class AbstractFlow implements FlowInterface
                 $value = $override[$value];
             }
 
-            if (!in_array($value, $inputMandatoryDef) && !array_key_exists($value, $outputDef)) {
+            if (!in_array($value, $inputMandatoryDef) && !in_array($value, $outputDef)) {
                 $inputMandatoryDef[] = $value;
             }
         }
 
-        $outputDef = array_unique(array_merge($outputDef, $objectOutputDef));
+        foreach ($objectOutputDef as $value) {
+            if (array_key_exists($value,$override)) {
+                $value = $override[$value];
+            }
+
+            if (!in_array($value, $outputDef)) {
+                $outputDef[] = $value;
+            }
+        }
+        $outputDef = array_unique($outputDef);
 
         return [
             'inputDef' => $inputDef,
@@ -384,8 +428,10 @@ abstract class AbstractFlow implements FlowInterface
         foreach ($this->getInputMandatoryDefinition() as $param) {
 
             if (array_key_exists($param, $parameterMap)) {
-                $param = $this->$parameterMap[$param];
+                $param = $parameterMap[$param];
             }
+
+            //dump($this->getInputMandatoryDefinition(), $param, $parameterMap, $params);
 
             if (!array_key_exists($param, $params)) {
                 $valid = false;
@@ -544,8 +590,13 @@ abstract class AbstractFlow implements FlowInterface
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function render($view, $options)
+    public function render($view, $options = [])
     {
+
+        if (empty($options)) {
+            $options = ['flow'=>$this->getOutput()->getParameters()];
+        }
+
         return $this->container->get('twig')->render($view,$options);
     }
 

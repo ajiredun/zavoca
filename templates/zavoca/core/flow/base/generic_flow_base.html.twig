@@ -1,0 +1,7 @@
+{% extends 'zavoca/core/base.html.twig' %}
+
+{% block content %}
+    {% if flowResponse is defined and flowResponse %}
+        {{ flowResponse | raw }}
+    {% endif %}
+{% endblock %}

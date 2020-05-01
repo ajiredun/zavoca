@@ -7,6 +7,15 @@
 
     <form class="form-horizontal m-t-20" method="post">
 
+        {% if accessDeniedMessage %}
+            <div class="alert alert-danger alert-rounded text-center text-capitalize">
+                <h5>{{ accessDeniedMessage }}</h5>
+            </div>
+            <div class="text-center">
+                <p class="text-muted mb-5">If you think this is an error, please contact support on @TODO</p>
+            </div>
+        {% endif %}
+
         {% if error %}
             <div class="alert alert-warning alert-rounded">
                 {{ error.messageKey|trans(error.messageData, 'security') }}
@@ -14,9 +23,9 @@
         {% endif %}
 
         {% if app.user %}
-            <div class="mb-3">
-                You are logged in as {{ app.user.username }}, <a
-                        href="{{ path('zavoca_core_logout') }}">Logout</a>
+            <div class="mb-5 text-center">
+                You are logged in as {{ app.user.username }}, <br/>
+                <a class="btn btn-outline-danger btn-xs m-t-15" href="{{ path('zavoca_core_logout') }}">Logout</a>
             </div>
         {% else %}
             <div class="input-group mb-3">

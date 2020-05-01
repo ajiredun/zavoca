@@ -1,0 +1,201 @@
+<div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+     aria-labelledby="pills-home-tab">
+    <div class="p-15 border-bottom">
+        <!-- Sidebar -->
+        <h5 class="font-medium m-b-10 m-t-10">Layout Settings</h5>
+        <div class="custom-control custom-checkbox m-t-10">
+            <input type="checkbox" class="custom-control-input" name="theme-view" id="theme-view">
+            <label class="custom-control-label" for="theme-view">Dark Theme</label>
+        </div>
+        <div class="custom-control custom-checkbox m-t-10" style="display: none;">
+            <input type="checkbox" class="custom-control-input sidebartoggler" name="collapssidebar" id="collapssidebar">
+            <label class="custom-control-label" for="collapssidebar">Collapse Sidebar</label>
+        </div>
+    </div>
+    <div class="p-15 border-bottom">
+        <!-- Logo BG -->
+        <h5 class="font-medium m-b-10 m-t-10">Logo Backgrounds</h5>
+        <ul class="theme-color">
+            <li class="theme-item">
+                <a href="javascript:void(0)" class="theme-link" data-logobg="skin1"></a>
+            </li>
+            <li class="theme-item">
+                <a href="javascript:void(0)" class="theme-link" data-logobg="skin2"></a>
+            </li>
+            <li class="theme-item">
+                <a href="javascript:void(0)" class="theme-link" data-logobg="skin3"></a>
+            </li>
+            <li class="theme-item">
+                <a href="javascript:void(0)" class="theme-link" data-logobg="skin4"></a>
+            </li>
+            <li class="theme-item">
+                <a href="javascript:void(0)" class="theme-link" data-logobg="skin5"></a>
+            </li>
+            <li class="theme-item">
+                <a href="javascript:void(0)" class="theme-link" data-logobg="skin6"></a>
+            </li>
+        </ul>
+        <!-- Logo BG -->
+    </div>
+    <div class="p-15 border-bottom">
+        <!-- Navbar BG -->
+        <h5 class="font-medium m-b-10 m-t-10">Navbar Backgrounds</h5>
+        <ul class="theme-color">
+            <li class="theme-item">
+                <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin1"></a>
+            </li>
+            <li class="theme-item">
+                <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin2"></a>
+            </li>
+            <li class="theme-item">
+                <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin3"></a>
+            </li>
+            <li class="theme-item">
+                <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin4"></a>
+            </li>
+            <li class="theme-item">
+                <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin5"></a>
+            </li>
+            <li class="theme-item">
+                <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin6"></a>
+            </li>
+        </ul>
+        <!-- Navbar BG -->
+    </div>
+    <div class="p-15 border-bottom">
+        <!-- Logo BG -->
+        <h5 class="font-medium m-b-10 m-t-10">Sidebar Backgrounds</h5>
+        <ul class="theme-color">
+            <li class="theme-item">
+                <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin1"></a>
+            </li>
+            <li class="theme-item">
+                <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin2"></a>
+            </li>
+            <li class="theme-item">
+                <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin3"></a>
+            </li>
+            <li class="theme-item">
+                <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin4"></a>
+            </li>
+            <li class="theme-item">
+                <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin5"></a>
+            </li>
+            <li class="theme-item">
+                <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin6"></a>
+            </li>
+        </ul>
+        <!-- Logo BG -->
+    </div>
+</div>
+
+
+<script>
+    {% if app.user is defined and app.user %}
+    $(function () {
+        'use strict';
+        $('#main-wrapper').AdminSettings({
+            Theme: {% if app.user.darkTheme %}true{% else %}false{% endif %}, // this can be true or false ( true means dark and false means light ),
+            Layout: 'vertical',
+            LogoBg: '{{ app.user.backgroundLogo }}', // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6
+            NavbarBg: '{{ app.user.backgroundNavbar }}', // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6
+            SidebarType: 'full', // You can change it full / mini-sidebar / iconbar / overlay
+            SidebarColor: '{{ app.user.backgroundSidebar }}', // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6
+            SidebarPosition: true, // it can be true / false ( true means Fixed and false means absolute )
+            HeaderPosition: true, // it can be true / false ( true means Fixed and false means absolute )
+            BoxedLayout: false // it can be true / false ( true means Boxed and false means Fluid )
+        });
+
+        if ($('#main-wrapper').attr('data-navbarbg') == 'skin6') {
+            // do this
+            $(".topbar .navbar").addClass('navbar-light');
+            $(".topbar .navbar").removeClass('navbar-dark');
+        } else {
+            $(".topbar .navbar").removeClass('navbar-light');
+            $(".topbar .navbar").addClass('navbar-dark');
+        }
+
+        {% if app.user.darkTheme %}
+        $('body').attr("data-theme", 'dark' );
+        $('#theme-view').prop('checked',1);
+        {% else %}
+        $('body').attr("data-theme", 'light' );
+        $('#theme-view').prop('checked',0);
+        {% endif %}
+
+
+        if ($('#main-wrapper').attr('data-navbarbg') == 'skin6') {
+            // do this
+            $(".topbar .navbar").addClass('navbar-light');
+            $(".topbar .navbar").removeClass('navbar-dark');
+        } else {
+            // do that
+            $(".topbar .navbar").removeClass('navbar-light');
+            $(".topbar .navbar").addClass('navbar-dark');
+        }
+
+    });
+    {% endif %}
+
+    $(document).ready(function () {
+        {% if app.user is defined and app.user %}
+
+        $('.theme-link[data-logobg]').on('click', function () {
+            setLogoBackground($(this).attr('data-logobg'));
+        });
+
+        $('.theme-link[data-navbarbg]').on('click', function () {
+            setNavbarBackground($(this).attr('data-navbarbg'));
+        });
+
+        $('.theme-link[data-sidebarbg]').on('click', function () {
+            setSidebarBackground($(this).attr('data-sidebarbg'));
+        });
+
+        $('#theme-view').change(function () {
+            if ($(this).is(":checked")) {
+                setDarkTheme(1);
+            } else {
+                setDarkTheme(0);
+            }
+        });
+
+        function setLogoBackground(skin) {
+            themeRequest('background-logo', skin);
+        }
+
+        function setNavbarBackground(skin) {
+            themeRequest('background-navbar', skin);
+        }
+
+        function setSidebarBackground(skin) {
+            themeRequest('background-sidebar', skin);
+        }
+
+        function setDarkTheme(theme) {
+            themeRequest('dark-theme', theme);
+        }
+
+        function themeRequest(area, value) {
+            $.get('{{ path('zavoca_core_user_theme') }}/'+area+'/'+value, function(data, status){
+                if (data.success && status=='success') {
+                    Swal.fire(
+                        'Successful',
+                        data.message,
+                        'success'
+                    )
+                } else {
+                    Swal.fire(
+                        'Warning',
+                        data.message,
+                        'warning'
+                    ).then((result) => {
+                        window.location.href = window.location.href;
+                    })
+                }
+            });
+        }
+
+        {% endif %}
+    });
+</script>

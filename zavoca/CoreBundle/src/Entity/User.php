@@ -4,6 +4,7 @@ namespace Zavoca\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="Zavoca\CoreBundle\Repository\UserRepository")
@@ -16,6 +17,28 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $backgroundLogo;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $backgroundSidebar;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $backgroundNavbar;
+
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $autoDarkMode;
+
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -96,7 +119,12 @@ class User implements UserInterface
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
-        $this->darkTheme = true;
+        $this->darkTheme = false;
+        $this->backgroundLogo = 'skin5';
+        $this->backgroundNavbar = 'skin5';
+        $this->backgroundSidebar = 'skin6';
+        $this->country = "MU";
+        $this->autoDarkMode = false;
     }
 
     /**
@@ -129,6 +157,55 @@ class User implements UserInterface
     {
         return $this->id;
     }
+
+    public function getAutoDarkMode(): ?bool
+    {
+        return $this->autoDarkMode;
+    }
+
+    public function setAutoDarkMode(bool $autoDarkMode): self
+    {
+        $this->autoDarkMode = $autoDarkMode;
+
+        return $this;
+    }
+
+    public function getBackgroundLogo(): ?string
+    {
+        return $this->backgroundLogo;
+    }
+
+    public function setBackgroundLogo(string $backgroundLogo): self
+    {
+        $this->backgroundLogo = $backgroundLogo;
+
+        return $this;
+    }
+
+    public function getBackgroundSidebar(): ?string
+    {
+        return $this->backgroundSidebar;
+    }
+
+    public function setBackgroundSidebar(string $backgroundSidebar): self
+    {
+        $this->backgroundSidebar = $backgroundSidebar;
+
+        return $this;
+    }
+
+    public function getBackgroundNavbar(): ?string
+    {
+        return $this->backgroundNavbar;
+    }
+
+    public function setBackgroundNavbar(string $backgroundNavbar): self
+    {
+        $this->backgroundNavbar = $backgroundNavbar;
+
+        return $this;
+    }
+
 
     public function getEmail(): ?string
     {

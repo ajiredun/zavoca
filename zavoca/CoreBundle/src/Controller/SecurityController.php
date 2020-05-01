@@ -2,12 +2,15 @@
 
 namespace Zavoca\CoreBundle\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Security\Core\Security;
 use Zavoca\CoreBundle\Entity\User;
 use Zavoca\CoreBundle\Service\UserManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -15,15 +18,38 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login", name="zavoca_core_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
     {
+
+        $accessDeniedMessage = null;
+
+        if ($accessDenied = $request->attributes->get(Security::ACCESS_DENIED_ERROR, false)) {
+
+            if ($accessDenied instanceof AccessDeniedException && !is_null($accessDenied->getSubject()) && $accessDenied->getSubject()->attributes->get('_route', false)) {
+
+                $accessDeniedMessage = $accessDenied->getMessage();
+
+            } else {
+                if ($accessDenied instanceof AccessDeniedException && !is_null($accessDenied->getMessage()) && $accessDenied->getMessage()=="UNAUTHORISED_API_REQUEST") {
+
+                    return new JsonResponse(
+                        [
+                            'message' => $accessDenied->getMessage()
+                        ],
+                        403
+                    );
+                }
+            }
+        }
+
+
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('zavoca/core/security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('zavoca/core/security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error, 'accessDeniedMessage'=>$accessDeniedMessage]);
     }
 
     /**

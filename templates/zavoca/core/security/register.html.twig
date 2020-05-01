@@ -10,9 +10,9 @@
 
 {% block form %}
     {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a
-                    href="{{ path('zavoca_core_logout') }}">Logout</a>
+        <div class="mb-5 text-center">
+            You are logged in as {{ app.user.username }}, <br/>
+            <a class="btn btn-outline-danger btn-xs m-t-15" href="{{ path('zavoca_core_logout') }}">Logout</a>
         </div>
     {% else %}
         <form method="post">

@@ -3,3 +3,4 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     globals:
         zavoca_messages: '@Zavoca\CoreBundle\Service\ZavocaMessages'
+        zavoca_context: '@Zavoca\CoreBundle\Service\ContextManager'

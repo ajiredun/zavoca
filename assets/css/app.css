@@ -1,8 +1,10 @@
 @import '~chartist/dist/chartist.min.css';
 @import '~morris.js/morris.css';
 @import 'backoffice-theme/style.css';
+@import 'backoffice-theme/icons/font-awesome/css/fontawesome-all.min.css';
 @import '~bootstrap/dist/css/bootstrap.css';
 @import '~perfect-scrollbar/css/perfect-scrollbar.css';
+@import '~sweetalert2/dist/sweetalert2.min.css';
 
 
 .auth_logo {
@@ -21,6 +23,35 @@
     border-radius: 5px;
 }
 
-@media screen and (min-width: 768px) {
-    
+.user-image {
+    position:relative;
+}
+
+.user-image .status{
+    position:relative;
+    bottom:20px;
+    right:20px;
+    width:20px;
+    height:20px;
+    border-radius: 50%;
+    border: 3px solid white;
+}
+
+.user-image .online{
+    background:limegreen;
+}
+
+.user-image .offline{
+    background:dimgrey;
+}
+
+.form-horizontal .form-check {
+    display:inline;
+    padding-right:2.5em;
+}
+
+@media screen and (max-width: 768px) {
+    .hide-mobile {
+        display:none;
+    }
 }

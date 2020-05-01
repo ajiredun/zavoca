@@ -1,0 +1,32 @@
+{% extends 'zavoca/core/base.html.twig' %}
+
+{% block content %}
+
+    <!-- Row -->
+    <div class="row">
+        <!-- Column -->
+        <div class="col-lg-3 col-xlg-2 col-md-3">
+            {% if widgetUserResponse is defined and widgetUserResponse %}
+                {{ widgetUserResponse | raw }}
+            {% endif %}
+        </div>
+        <div class="col-lg-9 col-xlg-10 col-md-9">
+            <div class="card">
+                <!-- Tabs -->
+                <ul class="nav nav-pills custom-pills" id="pills-tab" role="tablist">
+                    {{ userTabsResponse | raw }}
+                </ul>
+                <!-- Tabs -->
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="previous-month" role="tabpanel" aria-labelledby="pills-setting-tab">
+                        <div class="card-body">
+                            {{ userDetailsResponse | raw }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

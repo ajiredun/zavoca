@@ -6,7 +6,6 @@ namespace Zavoca\CoreBundle\Enums;
 
 class Modules extends \App\Enums\Core\Modules
 {
-    use BaseEnumTrait;
 
     const USER_AUTH = 'USER_AUTH';
     const ROLES_MANAGEMENT = 'ROLES_MANAGEMENT';

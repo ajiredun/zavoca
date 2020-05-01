@@ -6,9 +6,6 @@ namespace Zavoca\CoreBundle\Enums;
 
 class Roles extends \App\Enums\Core\Roles
 {
-    use BaseEnumTrait;
-
-
     //BASIC
     const ROLE_ADMIN = 'ROLE_ADMIN';
     const ROLE_USER = 'ROLE_USER';
@@ -21,12 +18,9 @@ class Roles extends \App\Enums\Core\Roles
     // ROLE MANAGEMENT
     const ROLE_ROLES_MANAGEMENT = "ROLE_ROLES_MANAGEMENT";
 
-    //BACK OFFICE SETTINGS
-    const ROLE_BO_SETTINGS = "ROLE_BO_SETTINGS";
 
     //API USER
     const ROLE_API_USER = "ROLE_API_USER";
-
 
 
     static function getList()
@@ -38,7 +32,6 @@ class Roles extends \App\Enums\Core\Roles
             Roles::ROLE_USER_MANAGEMENT_VIEWER => "User Manager - View Only",
             Roles::ROLE_USER_MANAGEMENT_EDITOR => "User Manager",
             Roles::ROLE_ROLES_MANAGEMENT => "Role Manager",
-            Roles::ROLE_BO_SETTINGS => "Back Office Settings",
             Roles::ROLE_API_USER => "Anonymous Web User",
         ];
 
@@ -52,7 +45,6 @@ class Roles extends \App\Enums\Core\Roles
             Roles::ROLE_VIEWER => self::getLabel(Roles::ROLE_VIEWER),
             Roles::ROLE_USER_MANAGEMENT_EDITOR => self::getLabel(Roles::ROLE_USER_MANAGEMENT_EDITOR),
             Roles::ROLE_ROLES_MANAGEMENT => self::getLabel(Roles::ROLE_ROLES_MANAGEMENT),
-            Roles::ROLE_BO_SETTINGS => self::getLabel(Roles::ROLE_BO_SETTINGS),
         ];
 
         return array_merge(parent::getConfigurableList(),$list);

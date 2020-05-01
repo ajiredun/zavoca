@@ -35,6 +35,20 @@ class UserFixture extends BaseFixtures
 
         $manager->persist($user);
 
+
+        $user1 = new User();
+        $user1->setFirstname('Rushdana');
+        $user1->setLastname('Edun');
+        $user1->setEmail('rushdana.janoo@gmail.com');
+        $user1->setMobile('59033978');
+        $user1->setStatus(UserStatus::ACTIVE);
+        $user1->setPassword($this->passwordEncoder->encodePassword(
+            $user1,
+            'rushadmin'
+        ));
+
+        $manager->persist($user1);
+
         $manager->flush();
     }
     

@@ -1,0 +1,91 @@
+{% set user = flow.user %}
+<div class="card">
+    <div class="card-body">
+        <center class="m-t-30">
+            <div class="user-image">
+                <img src="{{ user.picture }}" class="rounded-circle" width="150" />
+                <div class="status {% if user.isActiveNow %}online{% else %}offline{% endif %}" style="bottom:22px;left:47px;"></div>
+            </div>
+
+            <h4 class="card-title m-t-10">{{ user.name }}</h4>
+            <h6 class="card-subtitle">
+                {% include 'zavoca/micro/roleList.html.twig' with {'roles':user.roles} %}
+            </h6>
+            <div class="row text-center justify-content-md-center">
+                <div class="col-6"><small class="text-muted">Status </small> {{displayUserStatus(user.status) | raw}}</div>
+                <div class="col-6">Prospect</div>
+            </div>
+        </center>
+    </div>
+    <div>
+        <hr> </div>
+    <div class="card-body">
+        <small class="text-muted">Email address </small>
+        <h6>{{ user.email }}</h6>
+
+        <small class="text-muted p-t-30 db">Phone</small>
+        <h6>{{ user.mobile }}</h6>
+
+        {% if user.address %}
+            <small class="text-muted p-t-30 db">Address</small>
+            <h6>{% if user.address %}{{ user.address }}{% endif %}{% if user.address %}, {{ user.country }}{% endif %} {% if user.address %}({{ user.zipCode }}){% endif %}</h6>
+        {% endif %}
+    </div>
+</div>
+
+{% if flow.user_details is defined and flow.user_details %}
+
+    <div class="card-body p-0">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card border-bottom border-info">
+                    <div class="card-body">
+                        <div class="d-flex no-block align-items-center">
+                            <div>
+                                <h6 class="text-info">Created on</h6>
+                                <h4>{{ displayDate(user.createdAt) }}</h4>
+                            </div>
+                            <div class="ml-auto">
+                                <span class="text-info display-6"><i class="ti-notepad"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card border-bottom border-info">
+                    <div class="card-body">
+                        <div class="d-flex no-block align-items-center">
+                            <div>
+                                <h6 class="text-info">Last active</h6>
+                                <h4>{{ displayDate(user.lastActive) }}</h4>
+                            </div>
+                            <div class="ml-auto">
+                                <span class="text-info display-6"><i class="ti-timer"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card border-bottom {% if user.isActiveNow %}border-success{% else %}border-info{% endif %}">
+                    <div class="card-body">
+                        <div class="d-flex no-block align-items-center">
+                            <div>
+                                <h4 class="{% if user.isActiveNow %}text-success{% else %}text-info{% endif %}">{% if user.isActiveNow %}Online{% else %}Offline{% endif %}</h4>
+                                <h6 class="{% if user.isActiveNow %}text-success{% else %}text-info{% endif %}">right now</h6>
+                            </div>
+                            <div class="ml-auto">
+                                <span class="{% if user.isActiveNow %}text-success{% else %}text-info{% endif %} display-6"><i class="ti-signal"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

@@ -10,7 +10,8 @@
     <meta name="author" content="Ajir Edun">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('build/favicon.ico') }}">
-    <title>{% block title %}Hello{% endblock %} - Zavoca</title>
+    <title>{% block title %}{% if zavoca_context.pageTitle is defined and zavoca_context.pageTitle %}{{ zavoca_context.pageTitle }}{% else %}Hello{% endif %}{% endblock %}
+        - Zavoca</title>
 
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
@@ -26,6 +27,9 @@
 </head>
 
 <body>
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
 {% block whole %}
     <div class="preloader">
         <div class="lds-ripple">
@@ -47,22 +51,23 @@
                             <!-- ============================================================== -->
                             <!-- Logo -->
                             <!-- ============================================================== -->
-                            <a class="navbar-brand" href="index.html">
+                            <a class="navbar-brand" href="{{ path('zavoca_core_main') }}">
                                 <!-- Logo icon -->
                                 <b class="logo-icon">
                                     <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                                     <!-- Dark Logo icon -->
                                     <img src="{{ asset('build/icon.png') }}" alt="Zavoca" class="logo-nav dark-logo"/>
                                     <!-- Light Logo icon -->
-                                    <img src="{{ asset('build/icon_light.png') }}" alt="Zavoca" class="logo-nav light-logo"/>
+                                    <img src="{{ asset('build/icon_light.png') }}" alt="Zavoca"
+                                         class="logo-nav light-logo"/>
                                 </b>
                                 <!--End Logo icon -->
                                 <!-- Logo text -->
                                 <span class="logo-text">
                                     <!-- dark Logo text -->
-                                    <img class="logo-nav-text dark-logo" src="{{ asset('build/logo.png') }}" />
+                                    <img class="logo-nav-text dark-logo" src="{{ asset('build/logo.png') }}"/>
                                     <!-- Light Logo text -->
-                                    <img class="logo-nav-text light-logo" src="{{ asset('build/logo_light.png') }}" />
+                                    <img class="logo-nav-text light-logo" src="{{ asset('build/logo_light.png') }}"/>
                                 </span>
                             </a>
                             <!-- ============================================================== -->
@@ -86,12 +91,6 @@
                             <!-- toggle and nav items -->
                             <!-- ============================================================== -->
                             <ul class="navbar-nav float-left mr-auto">
-                                <li class="nav-item d-none d-md-block">
-                                    <a class="nav-link sidebartoggler waves-effect waves-light"
-                                       href="javascript:void(0)" data-sidebartype="mini-sidebar">
-                                        <i class="sl-icon-menu font-20"></i>
-                                    </a>
-                                </li>
                                 {% block navbar_left %}
                                     {% include 'zavoca/core/layout/navbar_left.html.twig' %}
                                 {% endblock %}
@@ -134,30 +133,38 @@
                         {% block breadcrumb_container %}
                             <div class="page-breadcrumb">
                                 <div class="row">
-                                    <div class="col-5 align-self-center">
-                                        <h4 class="page-title">Dashboard</h4>
+                                    <div class="col-3 align-self-center">
+                                        <h4 class="page-title">{% block pageTitle %}{% if zavoca_context.pageTitle is defined and zavoca_context.pageTitle %}{{ zavoca_context.pageTitle }}{% endif %}{% endblock %}</h4>
                                         <div class="d-flex align-items-center">
 
                                         </div>
                                     </div>
-                                    <div class="col-7 align-self-center">
-                                        <div class="d-flex no-block justify-content-end align-items-center">
-                                            <nav aria-label="breadcrumb">
-                                                <ol class="breadcrumb">
-                                                    <li class="breadcrumb-item">
-                                                        <a href="#">Home</a>
-                                                    </li>
-                                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
-                                                </ol>
-                                            </nav>
+                                    <div class="col-9 align-self-center">
+                                        <div class="d-flex justify-content-end align-items-center">
+                                            {% for pa in zavoca_context.pageActions %}
+                                                <a href="{{ path(pa.pageAction.link) }}"
+                                                   title="{{ pa.pageAction.label }}"
+                                                   data-toggle="tooltip" data-placement="bottom"
+                                                   style="margin-left:5px;"
+                                                   data-prompt="{% if pa.pageAction.prompt %}prompt{% else %}no-prompt{% endif %}"
+                                                   data-prompt-sign="{{ pa.pageAction.promptSettings.sign }}"
+                                                   data-prompt-message="{{ pa.pageAction.promptSettings.message }}"
+                                                   data-prompt-button-confirm="{{ pa.pageAction.promptSettings.button_confirm }}"
+                                                   data-prompt-button-cancel="{{ pa.pageAction.promptSettings.button_cancel }}"
+                                                   class="btn waves-effect waves-light btn-rounded zavoca-prompt {{ pa.pageAction.type }}">
+                                                    <i class="{{ pa.pageAction.icon }}"></i> <span
+                                                            class="hide-mobile">{{ pa.pageAction.label }}</span>
+                                                </a>
+                                            {% endfor %}
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
                         {% endblock %}
 
                         {% block content_wrapper %}
-                            <div class="container-fluid">
+                            <div class="container-fluid scrollable">
                                 <div class="row">
                                     <div class="col-12">
                                         {% block zavocaMessages %}
@@ -227,112 +234,7 @@
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
                     <!-- Tab 1 -->
-                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
-                         aria-labelledby="pills-home-tab">
-                        <div class="p-15 border-bottom">
-                            <!-- Sidebar -->
-                            <h5 class="font-medium m-b-10 m-t-10">Layout Settings</h5>
-                            <div class="custom-control custom-checkbox m-t-10">
-                                <input type="checkbox" class="custom-control-input" name="theme-view" id="theme-view">
-                                <label class="custom-control-label" for="theme-view">Dark Theme</label>
-                            </div>
-                            <div class="custom-control custom-checkbox m-t-10">
-                                <input type="checkbox" class="custom-control-input sidebartoggler" name="collapssidebar
-                                   " id="collapssidebar">
-                                <label class="custom-control-label" for="collapssidebar">Collapse Sidebar</label>
-                            </div>
-                            <div class="custom-control custom-checkbox m-t-10">
-                                <input type="checkbox" class="custom-control-input" name="sidebar-position"
-                                       id="sidebar-position">
-                                <label class="custom-control-label" for="sidebar-position">Fixed Sidebar</label>
-                            </div>
-                            <div class="custom-control custom-checkbox m-t-10">
-                                <input type="checkbox" class="custom-control-input" name="header-position"
-                                       id="header-position">
-                                <label class="custom-control-label" for="header-position">Fixed Header</label>
-                            </div>
-                            <div class="custom-control custom-checkbox m-t-10">
-                                <input type="checkbox" class="custom-control-input" name="boxed-layout"
-                                       id="boxed-layout">
-                                <label class="custom-control-label" for="boxed-layout">Boxed Layout</label>
-                            </div>
-                        </div>
-                        <div class="p-15 border-bottom">
-                            <!-- Logo BG -->
-                            <h5 class="font-medium m-b-10 m-t-10">Logo Backgrounds</h5>
-                            <ul class="theme-color">
-                                <li class="theme-item">
-                                    <a href="javascript:void(0)" class="theme-link" data-logobg="skin1"></a>
-                                </li>
-                                <li class="theme-item">
-                                    <a href="javascript:void(0)" class="theme-link" data-logobg="skin2"></a>
-                                </li>
-                                <li class="theme-item">
-                                    <a href="javascript:void(0)" class="theme-link" data-logobg="skin3"></a>
-                                </li>
-                                <li class="theme-item">
-                                    <a href="javascript:void(0)" class="theme-link" data-logobg="skin4"></a>
-                                </li>
-                                <li class="theme-item">
-                                    <a href="javascript:void(0)" class="theme-link" data-logobg="skin5"></a>
-                                </li>
-                                <li class="theme-item">
-                                    <a href="javascript:void(0)" class="theme-link" data-logobg="skin6"></a>
-                                </li>
-                            </ul>
-                            <!-- Logo BG -->
-                        </div>
-                        <div class="p-15 border-bottom">
-                            <!-- Navbar BG -->
-                            <h5 class="font-medium m-b-10 m-t-10">Navbar Backgrounds</h5>
-                            <ul class="theme-color">
-                                <li class="theme-item">
-                                    <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin1"></a>
-                                </li>
-                                <li class="theme-item">
-                                    <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin2"></a>
-                                </li>
-                                <li class="theme-item">
-                                    <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin3"></a>
-                                </li>
-                                <li class="theme-item">
-                                    <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin4"></a>
-                                </li>
-                                <li class="theme-item">
-                                    <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin5"></a>
-                                </li>
-                                <li class="theme-item">
-                                    <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin6"></a>
-                                </li>
-                            </ul>
-                            <!-- Navbar BG -->
-                        </div>
-                        <div class="p-15 border-bottom">
-                            <!-- Logo BG -->
-                            <h5 class="font-medium m-b-10 m-t-10">Sidebar Backgrounds</h5>
-                            <ul class="theme-color">
-                                <li class="theme-item">
-                                    <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin1"></a>
-                                </li>
-                                <li class="theme-item">
-                                    <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin2"></a>
-                                </li>
-                                <li class="theme-item">
-                                    <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin3"></a>
-                                </li>
-                                <li class="theme-item">
-                                    <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin4"></a>
-                                </li>
-                                <li class="theme-item">
-                                    <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin5"></a>
-                                </li>
-                                <li class="theme-item">
-                                    <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin6"></a>
-                                </li>
-                            </ul>
-                            <!-- Logo BG -->
-                        </div>
-                    </div>
+                    {% include 'zavoca/core/layout/theme_customizer.html.twig' %}
                     <!-- End Tab 1 -->
                     <!-- Tab 2 -->
                     <div class="tab-pane fade" id="chat" role="tabpanel" aria-labelledby="pills-profile-tab">
@@ -352,22 +254,6 @@
     {% endblock %}
 
 {% endblock %}
-
-{% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
-{% endblock %}
-
-<script>
-    $(document).ready(function () {
-
-        $('#theme-view').prop("checked",
-                {% if app.user is defined and app.user and app.user.darkTheme %}true{% else %}false{% endif %} );
-        $('body').attr(
-            "data-theme",
-                {% if app.user is defined and app.user and app.user.darkTheme %}'dark'
-        {% else %}'light'{% endif %} )
-    });
-</script>
 
 {% block js %}{% endblock %}
 </body>

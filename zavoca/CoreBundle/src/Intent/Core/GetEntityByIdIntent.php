@@ -30,8 +30,8 @@ class GetEntityByIdIntent extends AbstractIntent
 
     public function execute()
     {
-        $entityClass = $this->get('entity_class');
-        $entityId = $this->get('entity_id');
+        $entityClass = $this->getEntityClass();
+        $entityId = $this->getEntityId();
 
         $entity = $this->entityManager->getRepository($entityClass)->findOneById($entityId);
 
@@ -39,6 +39,21 @@ class GetEntityByIdIntent extends AbstractIntent
             throw new IntentException('The entity id ' .$entityId .' is not found. ');
         }
 
+        $this->setEntityInParameterBag($entity);
+    }
+
+    protected function getEntityId()
+    {
+        return $this->get('entity_id');
+    }
+
+    protected function getEntityClass()
+    {
+        return $this->get('entity_class');
+    }
+
+    protected function setEntityInParameterBag($entity)
+    {
         $this->set('entity',$entity);
     }
 

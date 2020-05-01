@@ -40,6 +40,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/logout$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/forget$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
@@ -53,4 +54,4 @@ security:
 
     role_hierarchy:
         ROLE_VIEWER: [ROLE_USER_MANAGEMENT_VIEWER]
-        ROLE_ADMIN: [ROLE_ALLOWED_TO_SWITCH, ROLE_VIEWER]
+        ROLE_ADMIN: [ROLE_ALLOWED_TO_SWITCH, ROLE_VIEWER, ROLE_USER_MANAGEMENT_EDITOR]
