@@ -49,18 +49,23 @@ abstract class AbstractFlow implements FlowInterface
 
     public abstract function naturalPresentation();
 
-    public abstract function conversationPresentation();
+    //public abstract function assistantPresentation();
 
-    //public abstract function apiPresentation();
+    //public abstract function searchPresentation();
 
-    //public abstract function ajaxPresentation();
+    //public abstract function botPresentation();
 
-    public function apiPresentation()
+    public function searchPresentation()
     {
         return $this->naturalPresentation();
     }
 
-    public function ajaxPresentation()
+    public function botPresentation()
+    {
+        return $this->naturalPresentation();
+    }
+
+    public function assistantPresentation()
     {
         return $this->naturalPresentation();
     }
@@ -204,6 +209,15 @@ abstract class AbstractFlow implements FlowInterface
         ];*/
 
         return[];
+    }
+
+    public function defaultInputs()
+    {
+        /*return [
+            'param1'=> 'defaultValue'
+        ];*/
+
+        return [];
     }
 
     public static function getCode()
@@ -400,6 +414,15 @@ abstract class AbstractFlow implements FlowInterface
     public function input($parameterBag)
     {
         $this->parameterBag = $parameterBag;
+
+        $defaultInputs= $this->defaultInputs();
+        if (!empty($defaultInputs)) {
+            foreach ($defaultInputs as $key => $value) {
+                if (is_null($this->parameterBag->get($key))) {
+                    $this->parameterBag->add($key,$value);
+                }
+            }
+        }
 
         $event = new FlowEvent($this, FlowEvent::BEFORE_INPUT_VALIDATION);
         $this->getEventDispatcher()->dispatch($event, FlowEvent::NAME);

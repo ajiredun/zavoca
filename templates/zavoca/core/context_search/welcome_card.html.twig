@@ -1,0 +1,70 @@
+<div id="zsc-1" class="card text-center animated border-0 fadeInUp m-b-20 zavoca-search-card zavoca-search-card-welcome">
+    <div class="card-body bg-success text-white">
+        <span><i class="ti-bolt font-24"></i></span>
+    </div>
+    <div class="card-footer text-success bg-white">
+        Welcome {{ app.user.name }}!
+    </div>
+</div>
+
+<div id="zsc-2" class="card animated fadeInUp m-b-20 zavoca-search-card zavoca-search-card-quick-tips">
+    <div class="close bg-white"><i class="ti-close font-10"></i></div>
+    <div class="card-body">
+        <h3 class="card-title">A new way to manage Zavoca!</h3>
+        <p class="card-text">We have created some tips for you so that you can start taking
+        advantage of this new exciting way of managing your Zavoca.</p>
+        <button id="quick-tips-show" class="btn btn-success">Show tips</button>
+        <div class="quick-tips m-t-15 zavoca-hide">
+            <div class="card animated fadeInUp">
+                <div class="d-flex flex-row">
+                    <div class="p-10 bg-success">
+                        <h3 class="text-white box m-b-0"><i class="ti-hand-point-right"></i></h3></div>
+                    <div class="p-10">
+                        <h3 class="text-info m-b-0">VIEW Information</h3>
+                        <span class="text-muted">Using this awesome search, you no longer need to browse the back-office.</span>
+                        <p>
+                            You can simply write what you want and get it right away!.
+                        </p>
+                        <p>
+                            Example:
+                        </p>
+                        <p class="text-success">
+                            View user with name Ajir
+                        </p>
+                        <p class="font-weight-bolder">
+                            Show/View/Get/Fetch/Find <span class="text-primary">[entity]</span> with <span class="text-primary">[field]</span> <span class="text-primary">[value]</span> and <span class="text-primary">[field]</span> <span class="text-primary">[value]</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card animated fadeInUp">
+                <div class="d-flex flex-row">
+                    <div class="p-10 bg-secondary">
+                        <h3 class="text-white box m-b-0"><i class="ti-hand-point-right"></i></h3></div>
+                    <div class="p-10">
+                        <h3 class="text-info m-b-0">SET Information</h3>
+                        <span class="text-muted">Updating the system or other simple things becomes a breathe.</span>
+                        <p>
+                            Examples:
+                        </p>
+                        <ul class="text-success">
+                            <li>Turn on my dark theme</li>
+                            <li>Turn of my automatic dark mode</li>
+                            <li>Change system's name to Awesome!</li>
+                        </ul>
+                        <p class="font-weight-bolder">
+                            Change/Modify/Update/Set/Turn on/Turn off <span class="text-primary">[entity]</span>'s <span class="text-primary">[field]</span> to <span class="text-primary">[value]</span> and <span class="text-primary">[field]</span> to <span class="text-primary">[value]</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                $('.zavoca-search-card-quick-tips #quick-tips-show').click(function () {
+                    $('.zavoca-search-card-quick-tips .quick-tips').toggle();
+                });
+            });
+        </script>
+    </div>
+</div>

@@ -80,13 +80,15 @@
     </div>
 </div>
 
-<div class="card-body">
-    <div class="row">
-        <div class="col-md-12 text-right">
-            <button type="submit"  class="btn btn-success"><i class="fa fa-check"></i> Save</button>
+{% if is_granted('ROLE_USER_MANAGEMENT_EDITOR', user) %}
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="submit"  class="btn btn-success"><i class="fa fa-check"></i> Save</button>
+            </div>
         </div>
     </div>
-</div>
+{% endif %}
 {{ form_end(user_form) }}
 
 

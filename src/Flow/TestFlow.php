@@ -27,19 +27,4 @@ class TestFlow extends AbstractFlow
     {
         // TODO: Implement naturalPresentation() method.
     }
-
-    public function conversationPresentation()
-    {
-        // TODO: Implement conversationPresentation() method.
-    }
-
-    public function apiPresentation()
-    {
-        // TODO: Implement apiPresentation() method.
-    }
-
-    public function ajaxPresentation()
-    {
-        // TODO: Implement ajaxPresentation() method.
-    }
 }

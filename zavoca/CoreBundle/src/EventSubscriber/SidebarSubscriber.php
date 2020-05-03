@@ -56,12 +56,12 @@ class SidebarSubscriber implements EventSubscriberInterface
                 [
                     'name' => 'View Users',
                     'icon' => '<i class="fab fa-buffer"></i>',
-                    'route' => 'zavoca_core_test'
+                    'route' => 'zavoca_core_user_list'
                 ],
                 [
                     'name' => 'New User',
                     'icon' => '<i class="fas fa-user-plus"></i>',
-                    'route' => 'zavoca_core_test'
+                    'route' => 'zavoca_core_user_list'
                 ]
             ]
         ];

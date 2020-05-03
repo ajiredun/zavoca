@@ -43,7 +43,7 @@ class WidgetUserFlow extends AbstractFlow
         return $this->render('zavoca\core\flow\user\view_user.html.twig');
     }
 
-    public function conversationPresentation()
+    public function assistantPresentation()
     {
         /**
          * @var User $user

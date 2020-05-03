@@ -30,9 +30,4 @@ class UserTabsFlow extends AbstractFlow
     {
         return $this->render('zavoca\core\flow\user\user_tabs.html.twig');
     }
-
-    public function conversationPresentation()
-    {
-        return null;
-    }
 }

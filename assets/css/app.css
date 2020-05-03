@@ -50,8 +50,41 @@
     padding-right:2.5em;
 }
 
+.zavoca-hide {
+    display:none;
+}
+
+.show-mobile {
+    display:none;
+}
+
+/**
+ * Zavoca Context Search
+ */
+
+.zavoca-search-card {
+    position:relative;
+}
+
+.zavoca-search-card .close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 5px;
+    padding-left:7px;
+    padding-right:7px;
+    cursor: pointer;
+    z-index:99;
+}
+
+
+
 @media screen and (max-width: 768px) {
     .hide-mobile {
         display:none;
+    }
+
+    .show-mobile {
+        display:block;
     }
 }

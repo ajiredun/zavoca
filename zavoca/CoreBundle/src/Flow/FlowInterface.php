@@ -16,13 +16,20 @@ interface FlowInterface
 
     public function objectsDefinition();
 
+    /**
+     * @return array
+     *
+     * Each flow can have some default input parameters
+     */
+    public function defaultInputs();
+
     public function naturalPresentation();
 
-    public function conversationPresentation();
+    public function assistantPresentation();
 
-    public function apiPresentation();
+    public function searchPresentation();
 
-    public function ajaxPresentation();
+    public function botPresentation();
 
 
     public function input(ZavocaParameterBag $input);

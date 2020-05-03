@@ -11,14 +11,14 @@ use Zavoca\CoreBundle\Utils\PageAction;
 class ContextManager implements ContextManagerInterface
 {
     const NATURAL = 'NATURAL';
-    const CONVERSATIONAL = 'CONVERSATIONAL';
-    const AJAX = 'AJAX';
-    const API = 'API';
+    const ASSISTANT = 'ASSISTANT';
+    const BOT = 'BOT';
+    const SEARCH = 'SEARCH';
 
     /**
      * @var string
      *
-     * Determines the context of the request, that is natural, conversational, ajax ans api
+     * Determines the context of the request, that is natural, bot, chat and search
      */
     protected $context;
 
@@ -40,12 +40,18 @@ class ContextManager implements ContextManagerInterface
     {
         $path = $request->getPathInfo();
 
-        if ($request->isXmlHttpRequest()) {
-            $this->setContext(self::AJAX);
-        } elseif (!is_null($path) && (strpos($path, '/api') !== false)) {
-            $this->setContext(self::API);
-        } elseif (!is_null($path) && (strpos($path, '/ai') !== false)) {
-            $this->setContext(self::CONVERSATIONAL);
+        if (!is_null($path) && (strpos($path, '/zavoca-context-bot') !== false)) {
+
+            $this->setContext(self::BOT);
+
+        } elseif (!is_null($path) && (strpos($path, '/zavoca-context-search') !== false)) {
+
+            $this->setContext(self::SEARCH);
+
+        } elseif (!is_null($path) && (strpos($path, '/zavoca-context-assistant') !== false)) {
+
+            $this->setContext(self::ASSISTANT);
+
         } else {
             $this->setContext(self::NATURAL);
         }

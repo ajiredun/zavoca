@@ -70,19 +70,19 @@ class MainController extends AbstractZavocaController
 
 
     /**
-     * @Route("/ai/test", name="zavoca_core_test_conversational")
+     * @Route("/ai/assistant", name="zavoca_core_test_assistant")
      * @IsGranted(Roles::ROLE_VIEWER)
      *
      * @param ZavocaMessagesInterface $zavocaMessages
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function testConversational(ControlManagerInterface $controlManager)
+    public function testAssistant(ControlManagerInterface $controlManager)
     {
 
         $widgetUserResponse = $controlManager->execute(WidgetUserFlow::class, [
-            'user_id' => $this->getUser()->getId()
+            'user' => $this->getUser()
         ]);
 
-        return $this->render('zavoca/core/main/conversational.html.twig',[ 'widgetUserResponse' => $widgetUserResponse ]);
+        return $this->render('zavoca/core/main/assistant.html.twig',[ 'widgetUserResponse' => $widgetUserResponse ]);
     }
 }

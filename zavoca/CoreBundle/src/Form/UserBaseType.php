@@ -25,26 +25,30 @@ class UserBaseType extends AbstractType
             ->add('firstname',
                 TextType::class,
                 [
-                    'label' => 'Firstname'
+                    'label' => 'Firstname',
+                    'disabled'=> !$options['editable']
                 ]
             )
             ->add('lastname',
                 TextType::class,
                 [
-                    'label' => 'Lastname'
+                    'label' => 'Lastname',
+                    'disabled'=> !$options['editable']
                 ]
             )
             ->add('telephone',
                 TextType::class,
                 [
                     'label' => 'Telephone',
-                    'required' => false
+                    'required' => false,
+                    'disabled'=> !$options['editable']
                 ]
             )
             ->add('mobile',
                 TextType::class,
                 [
-                    'label' => 'Mobile'
+                    'label' => 'Mobile',
+                    'disabled'=> !$options['editable']
                 ]
             )
             ->add('email',
@@ -57,20 +61,23 @@ class UserBaseType extends AbstractType
             ->add('address',
                 TextareaType::class,
                 [
-                    'label' => 'Address'
+                    'label' => 'Address',
+                    'disabled'=> !$options['editable']
                 ]
             )
             ->add('zipcode',
                 TextType::class,
                 [
                     'label' => 'Postal Code',
-                    'required' => false
+                    'required' => false,
+                    'disabled'=> !$options['editable']
                 ]
             )
             ->add('country',
                 CountryType::class,
                 [
-                    'label' => 'Country'
+                    'label' => 'Country',
+                    'disabled'=> !$options['editable']
                 ]
             )
             ->add('autoDarkMode',
@@ -80,7 +87,8 @@ class UserBaseType extends AbstractType
                     'multiple' => false,
                     'expanded' => true,
                     'label' => "Automatic dark mode",
-                    'help' => 'Dark theme will be applied between 6.00pm to 6.00am'
+                    'help' => 'Dark theme will be applied between 6.00pm to 6.00am',
+                    'disabled'=> !$options['editable']
                 ]
             )
         ;
@@ -90,6 +98,9 @@ class UserBaseType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'editable' => true,
         ]);
+
+        $resolver->setAllowedTypes('editable', 'bool');
     }
 }

@@ -25,19 +25,16 @@ class SecurityController extends AbstractController
 
         if ($accessDenied = $request->attributes->get(Security::ACCESS_DENIED_ERROR, false)) {
 
-            if ($accessDenied instanceof AccessDeniedException && !is_null($accessDenied->getSubject()) && $accessDenied->getSubject()->attributes->get('_route', false)) {
-
-                $accessDeniedMessage = $accessDenied->getMessage();
-
-            } else {
-                if ($accessDenied instanceof AccessDeniedException && !is_null($accessDenied->getMessage()) && $accessDenied->getMessage()=="UNAUTHORISED_API_REQUEST") {
-
+            if ($accessDenied instanceof AccessDeniedException) {
+                if ($accessDenied->getMessage()=="UNAUTHORISED_API_REQUEST") {
                     return new JsonResponse(
                         [
                             'message' => $accessDenied->getMessage()
                         ],
                         403
                     );
+                } else {
+                    $accessDeniedMessage = "Access denied.";
                 }
             }
         }

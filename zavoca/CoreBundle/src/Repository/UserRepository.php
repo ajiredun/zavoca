@@ -3,11 +3,7 @@
 namespace Zavoca\CoreBundle\Repository;
 
 use Zavoca\CoreBundle\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
-use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Zavoca\CoreBundle\Enums\UserStatus;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -15,53 +11,67 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
+class UserRepository extends \App\RepositoryZavoca\UserRepository
 {
-    public function __construct(ManagerRegistry $registry)
+
+    public function findOnlineUsers($lazy = false)
     {
-        parent::__construct($registry, User::class);
+        $qb = $this->createQueryBuilder('u')
+            ->andWhere('u.lastActive > :date')
+            ->setParameter('date', new \DateTime('5 minutes ago'));
+        if ($lazy) {
+            $qb->select('u.id');
+        }
+        $qb = $qb->getQuery();
+
+        return $qb->execute();
     }
 
-    /**
-     * Used to upgrade (rehash) the user's password automatically over time.
-     */
-    public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
+    public function findTotalActiveUsers($lazy = false)
     {
-        if (!$user instanceof User) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
+        $qb = $this->createQueryBuilder('u')
+            ->andWhere('u.status = :status')
+            ->setParameter('status', UserStatus::ACTIVE);
+
+        if ($lazy) {
+            $qb->select('u.id');
         }
 
-        $user->setPassword($newEncodedPassword);
-        $this->_em->persist($user);
-        $this->_em->flush();
+        $qb = $qb->getQuery();
+
+        return $qb->execute();
     }
 
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findUsersCreatedByMonth($delay = null, $lazy = false)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        // if you want for a month specific '-1 month'
 
-    /*
-    public function findOneBySomeField($value): ?User
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $start = new \DateTime('first day of this month');
+        $end = new \DateTime('last day of this month');
+
+        $start->setTime(0, 0,0);
+        $end->setTime(24,59,59);
+
+        if ($delay !== null) {
+            $start->modify($delay);
+            $end->modify($delay);
+            $end->modify('last day of this month');
+        }
+
+        $qb = $this->createQueryBuilder('u')
+            ->andWhere('u.createdAt >= :date')
+            ->andWhere('u.createdAt < :dateEnd')
+            ->setParameter('date', $start)
+            ->setParameter('dateEnd', $end)
+            ->andWhere('u.status != :status')
+            ->setParameter('status', UserStatus::ARCHIVED);
+
+        if ($lazy) {
+            $qb->select('u.id');
+        }
+
+        $qb = $qb->getQuery();
+
+        return $qb->execute();
     }
-    */
 }

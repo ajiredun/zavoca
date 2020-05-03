@@ -129,9 +129,21 @@
             {% endblock %}
             {% block main_container %}
                 <div class="page-wrapper" style="display:block;">
+                    <div id="zavoca-context-search-container" class="zavoca-hide">
+                        <div class="row">
+                            <div class="col-md-3 col-xl-4"></div>
+                            <div class="col-md-6 col-xl-4 p-t-30">
+                                <div class="show-mobile p-t-30"></div>
+                                <div id="zavoca-context-search" class="p-t-25" style="margin-bottom:100px;">
+                                    {% include 'zavoca/core/context_search/welcome_card.html.twig' %}
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-xl-4"></div>
+                        </div>
+                    </div>
                     {% block content_container %}
                         {% block breadcrumb_container %}
-                            <div class="page-breadcrumb">
+                            <div id="zavoca-breadcrumb-wrapper" class="page-breadcrumb">
                                 <div class="row">
                                     <div class="col-3 align-self-center">
                                         <h4 class="page-title">{% block pageTitle %}{% if zavoca_context.pageTitle is defined and zavoca_context.pageTitle %}{{ zavoca_context.pageTitle }}{% endif %}{% endblock %}</h4>
@@ -164,7 +176,7 @@
                         {% endblock %}
 
                         {% block content_wrapper %}
-                            <div class="container-fluid scrollable">
+                            <div id="zavoca-content-wrapper" class="container-fluid scrollable">
                                 <div class="row">
                                     <div class="col-12">
                                         {% block zavocaMessages %}
@@ -195,7 +207,7 @@
                         {% endblock %}
                     {% endblock %}
                     {% block footer_container %}
-                        <footer class="footer text-center">
+                        <footer id="zavoca-content-footer" class="footer text-center">
                             {% block footer %}
                                 {% include 'zavoca/core/layout/footer.html.twig' %}
                             {% endblock %}

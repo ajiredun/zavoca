@@ -4,22 +4,20 @@
 namespace Zavoca\CoreBundle\Controller;
 
 
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Zavoca\CoreBundle\Entity\System;
 use Zavoca\CoreBundle\Entity\User;
-use Zavoca\CoreBundle\Flow\AbstractFlow;
 use Zavoca\CoreBundle\Flow\User\UserDetailsFlow;
+use Zavoca\CoreBundle\Flow\User\UsersCreatedPerMonthFlow;
 use Zavoca\CoreBundle\Flow\User\UserTabsFlow;
 use Zavoca\CoreBundle\Flow\User\WidgetUserFlow;
-use Zavoca\CoreBundle\Form\SystemType;
 use Zavoca\CoreBundle\Form\UserBaseType;
-use Zavoca\CoreBundle\Service\FlowFactory;
+use Zavoca\CoreBundle\Repository\UserRepository;
 use Zavoca\CoreBundle\Service\Interfaces\ContextManagerInterface;
 use Zavoca\CoreBundle\Service\Interfaces\ControlManagerInterface;
-use Zavoca\CoreBundle\Service\Interfaces\ZavocaMessagesInterface;
 use Zavoca\CoreBundle\Enums\Roles;
 use Zavoca\CoreBundle\Utils\PageAction;
 
@@ -30,7 +28,7 @@ class UserController extends AbstractZavocaController
 {
     /**
      * @Route("/profile/{user}", name="zavoca_core_user_profile")
-     * @IsGranted(Roles::ROLE_VIEWER)
+     * @IsGranted(Roles::ROLE_USER_MANAGEMENT_VIEWER)
      */
     public function profile($user = null, Request $request, ControlManagerInterface $controlManager, ContextManagerInterface $contextManager)
     {
@@ -76,25 +74,26 @@ class UserController extends AbstractZavocaController
      * @Route("/list", name="zavoca_core_user_list")
      * @IsGranted(Roles::ROLE_USER_MANAGEMENT_VIEWER)
      */
-    public function list(ControlManagerInterface $controlManager, ContextManagerInterface $contextManager)
+    public function list(UserRepository $userRepository,PaginatorInterface $paginator, ControlManagerInterface $controlManager, ContextManagerInterface $contextManager)
     {
         $contextManager->setPageTitle('Users');
+        $usersOnline = $userRepository->findOnlineUsers(true);
+        //$usersCreatedThisMonth = $userRepository->findUsersCreatedByMonth(null, true);
+        $totalActiveUsers = $userRepository->findTotalActiveUsers(true);
+
+        $usersCreatedThisMonthFlowResponse = $controlManager->execute(UsersCreatedPerMonthFlow::class, [
+            'zavoca_list_lazy' => true
+        ]);
 
 
-        /*$flowResponse = $controlManager->execute($changeSystemSettingsFlow,[
-            'system_id' => 3,
-            'zavoca_form_class' => SystemType::class,
-            'entity_class' => System::class
-        ],true);*/
-
-        return $this->render('zavoca/core/main/main.html.twig',[
-
+        return $this->render('zavoca/core/user/default_list.html.twig',[
+            'flowResponse' => $usersCreatedThisMonthFlowResponse
         ]);
     }
 
     /**
      * @Route("/theme/{area}/{value}", name="zavoca_core_user_theme")
-     * @IsGranted(Roles::ROLE_VIEWER)
+     * @IsGranted(Roles::ROLE_USER_MANAGEMENT_VIEWER)
      */
     public function updateTheme($area = null, $value = null)
     {

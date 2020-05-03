@@ -79,9 +79,9 @@ class ControlManager implements ControlManagerInterface
             $input = new ZavocaParameterBag($input);
         }
 
-        if ($flow->input($input)) {
-            if ($flow->isValid()) {
-                try {
+        try {
+            if ($flow->input($input)) {
+                if ($flow->isValid()) {
                     $flow->execute();
 
                     if ($flow->isSuccess()) {
@@ -91,29 +91,22 @@ class ControlManager implements ControlManagerInterface
 
                         return $this->handlePresentation($flow);
                     } else {
-                        $exception = new FlowException("The flow failed.");
-
-                        return $this->handleError($flow, $exception);
+                        throw new FlowException("The flow failed.");
                     }
 
-                } catch (\Exception $e) {
-                    $flow->setSuccess(false);
-                    return $this->handleError($flow, $e);
+                } else {
+                    //dump($flow->getParameterBag());
+                    throw new FlowException("The flow input parameters are not valid. Please check the valid() method of the flow.");
                 }
 
             } else {
-                //dump($flow->getParameterBag());
-                $exception = new FlowException("The flow input parameters are not valid. Please check the valid() method of the flow.");
-
-                return $this->handleError($flow, $exception);
+                //dump($flow->getParameterBag()->getParameters());
+                //dump($flow->getInputMandatoryDefinition());
+                throw new FlowException("The input parameters of this flow does not match the mandatory parameters.");
             }
-
-        } else {
-            //dump($flow->getParameterBag()->getParameters());
-            //dump($flow->getInputMandatoryDefinition());
-            $exception = new FlowException("The input parameters of this flow does not match the mandatory parameters.");
-
-            return $this->handleError($flow, $exception);
+        } catch (\Exception $e) {
+            $flow->setSuccess(false);
+            return $this->handleError($flow, $e);
         }
     }
 
@@ -156,14 +149,14 @@ class ControlManager implements ControlManagerInterface
             case ContextManager::NATURAL:
                 $presentation = $this->twig->render('zavoca\core\layout\debug_flow_error.html.twig', ['flow'=>$object,'exception'=> null]);
                 break;
-            case ContextManager::CONVERSATIONAL:
-                $presentation = "renderFlowError CONVERSATIONAL: Oops, seems like we had a problem processing your request. Please contact dev support.";
+            case ContextManager::ASSISTANT:
+                $presentation = "renderFlowError ASSISTANT: Oops, seems like we had a problem processing your request. Please contact dev support.";
                 break;
-            case ContextManager::API:
-                $presentation = "renderFlowError API: Oops, seems like we had a problem processing your request. Please contact dev support.";
+            case ContextManager::SEARCH:
+                $presentation = "renderFlowError SEARCH: Oops, seems like we had a problem processing your request. Please contact dev support.";
                 break;
-            case ContextManager::AJAX:
-                $presentation = "renderFlowError AJAX: Oops, seems like we had a problem processing your request. Please contact dev support.";
+            case ContextManager::BOT:
+                $presentation = "renderFlowError BOT: Oops, seems like we had a problem processing your request. Please contact dev support.";
                 break;
             default:
                 $presentation = $this->twig->render('zavoca\core\layout\debug_flow_error.html.twig', ['flow'=>$flow,'exception'=> null]);
@@ -185,17 +178,17 @@ class ControlManager implements ControlManagerInterface
         $presentation = null;
 
         switch ($this->contextManager->getContext()) {
-            case ContextManager::CONVERSATIONAL:
-                $presentation = "renderException CONVERSATIONAL: Oops, seems like we had a problem processing your request. Please contact dev support.".$exception->getMessage();
+            case ContextManager::ASSISTANT:
+                $presentation = "renderException ASSISTANT: Oops, seems like we had a problem processing your request. Please contact dev support.".$exception->getMessage();
                 break;
             /*case ContextManager::NATURAL:
                 $presentation = $this->twig->render('zavoca\core\layout\debug_flow_error.html.twig', ['flow'=>$flow,'exception'=>$exception]);
                 break;
-            case ContextManager::API:
-                $presentation = "renderException API: Oops, seems like we had a problem processing your request. Please contact dev support.";
+            case ContextManager::SEARCH:
+                $presentation = "renderException SEARCH: Oops, seems like we had a problem processing your request. Please contact dev support.";
                 break;
-            case ContextManager::AJAX:
-                $presentation = "renderException AJAX: Oops, seems like we had a problem processing your request. Please contact dev support.";
+            case ContextManager::BOT:
+                $presentation = "renderException BOT: Oops, seems like we had a problem processing your request. Please contact dev support.";
                 break;*/
             default:
                 $presentation = $this->twig->render('zavoca\core\layout\debug_flow_error.html.twig', ['flow'=>$flow,'exception'=>$exception]);
@@ -212,17 +205,17 @@ class ControlManager implements ControlManagerInterface
         $presentation = null;
 
         switch ($this->contextManager->getContext()) {
-            case ContextManager::CONVERSATIONAL:
-                $presentation = $flow->conversationPresentation();
+            case ContextManager::ASSISTANT:
+                $presentation = $flow->assistantPresentation();
                 break;
             /*case ContextManager::NATURAL:
                 $presentation = $flow->naturalPresentation();
                 break;
-            case ContextManager::API:
-                $presentation = $flow->apiPresentation();
+            case ContextManager::SEARCH:
+                $presentation = $flow->searchPresentation();
                 break;
-            case ContextManager::AJAX:
-                $presentation = $flow->ajaxPresentation();
+            case ContextManager::BOT:
+                $presentation = $flow->botPresentation();
                 break;*/
             default:
                 $presentation = $flow->naturalPresentation();
@@ -236,17 +229,17 @@ class ControlManager implements ControlManagerInterface
         $presentation = null;
 
         switch ($this->contextManager->getContext()) {
-            case ContextManager::CONVERSATIONAL:
-                $presentation = "handleErrorProductionPresentation CONVERSATIONAL: Oops, seems like we had a problem processing your request. Please contact dev support.";
+            case ContextManager::ASSISTANT:
+                $presentation = "handleErrorProductionPresentation ASSISTANT: Oops, seems like we had a problem processing your request. Please contact dev support.";
                 break;
             /*case ContextManager::NATURAL:
                 $presentation = "handleErrorProductionPresentation NATURAL: Oops, seems like we had a problem processing your request. Please contact dev support.";
                 break;
-            case ContextManager::API:
-                $presentation = "handleErrorProductionPresentation API: Oops, seems like we had a problem processing your request. Please contact dev support.";
+            case ContextManager::SEARCH:
+                $presentation = "handleErrorProductionPresentation SEARCH: Oops, seems like we had a problem processing your request. Please contact dev support.";
                 break;
-            case ContextManager::AJAX:
-                $presentation = "handleErrorProductionPresentation AJAX: Oops, seems like we had a problem processing your request. Please contact dev support.";
+            case ContextManager::BOT:
+                $presentation = "handleErrorProductionPresentation BOT: Oops, seems like we had a problem processing your request. Please contact dev support.";
                 break;*/
             default:
                 $presentation = "handleErrorProductionPresentation DEFAULT: Oops, seems like we had a problem processing your request. Please contact dev support.";

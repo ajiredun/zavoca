@@ -7,6 +7,7 @@ use Zavoca\CoreBundle\Entity\User;
 use Zavoca\CoreBundle\Event\SidebarEvent;
 use Zavoca\CoreBundle\Service\Interfaces\ContextManagerInterface;
 use Zavoca\CoreBundle\Service\Interfaces\ZavocaMessagesInterface;
+use Zavoca\CoreBundle\Service\SearchParams;
 use Zavoca\CoreBundle\Service\SystemManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -27,6 +28,7 @@ class KernelSubscriber implements EventSubscriberInterface
     protected $systemManager;
     protected $contextManager;
     protected $eventDispatcher;
+    protected $searchParams;
 
     public function __construct(
         EntityManagerInterface $em,
@@ -35,7 +37,8 @@ class KernelSubscriber implements EventSubscriberInterface
         ZavocaMessagesInterface $zavocaMessages,
         SystemManager $systemManager,
         ContextManagerInterface $contextManager,
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
+        SearchParams $searchParams
     ) {
         $this->security = $security;
         $this->em = $em;
@@ -44,6 +47,7 @@ class KernelSubscriber implements EventSubscriberInterface
         $this->systemManager = $systemManager;
         $this->contextManager = $contextManager;
         $this->eventDispatcher = $eventDispatcher;
+        $this->searchParams = $searchParams;
     }
 
     public static function getSubscribedEvents()
@@ -61,15 +65,24 @@ class KernelSubscriber implements EventSubscriberInterface
 
     public function onTerminate(KernelEvent $event)
     {
-        $user = $this->security->getUser();
+        $change = false;
 
+        $user = $this->security->getUser();
         if (!is_null($user) && $user->getAutoDarkMode()) {
-            if (time() > strtotime('6 pm') && time() < strtotime('6 am')) {
-                $user->setDarkTheme(true);
+            if (date('H') > 18 || date('H') < 6) {
+                if (!$user->getDarkTheme()) {
+                    $change = true;
+                    $user->setDarkTheme(true);
+                }
             } else {
-                $user->setDarkTheme(false);
+                if ($user->getDarkTheme()) {
+                    $change = true;
+                    $user->setDarkTheme(false);
+                }
             }
-            $this->em->flush($user);
+            if ($change) {
+                $this->em->flush($user);
+            }
         }
 
         if (!is_null($user) && !$user->isActiveNow()) {
@@ -84,6 +97,7 @@ class KernelSubscriber implements EventSubscriberInterface
         $this->setContextDefinition($request);
         $this->manageZavocaMessages();
         $this->setSystemAsGlobalTwig();
+        $this->manageSearchParams($request);
 
         $sidebarEvent = new SidebarEvent();
         $this->eventDispatcher->dispatch($sidebarEvent, SidebarEvent::NAME);
@@ -99,6 +113,17 @@ class KernelSubscriber implements EventSubscriberInterface
     protected function setSystemAsGlobalTwig()
     {
         $this->systemManager->addTwigGlobals();
+    }
+
+    protected function manageSearchParams($request)
+    {
+        $params = array_merge($request->request->all(), $request->query->all());
+        foreach ($params as $param => $paramvalue) {
+            if (strpos($param, 'zavoca_search_') !== false) {
+                $split = explode('_',$param,2);
+                $this->searchParams->add($split[1],$paramvalue);
+            }
+        }
     }
 
     protected function manageZavocaMessages()

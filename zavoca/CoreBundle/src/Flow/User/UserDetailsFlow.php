@@ -4,6 +4,7 @@
 namespace Zavoca\CoreBundle\Flow\User;
 
 
+use Zavoca\CoreBundle\Enums\Roles;
 use Zavoca\CoreBundle\Flow\AbstractFlow;
 use Zavoca\CoreBundle\Intent\Core\GetFormTypeIntent;
 use Zavoca\CoreBundle\Intent\Core\GetFormTypeViewIntent;
@@ -47,14 +48,16 @@ class UserDetailsFlow extends AbstractFlow
         ];
     }
 
+    public function defaultInputs()
+    {
+        return [
+            'zavoca_form_access' => Roles::ROLE_USER_MANAGEMENT_EDITOR
+        ];
+    }
+
     public function naturalPresentation()
     {
         return $this->render('zavoca\core\flow\user\user_details.html.twig');
-    }
-
-    public function conversationPresentation()
-    {
-        return null;
     }
 
 }

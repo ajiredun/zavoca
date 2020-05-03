@@ -2,12 +2,15 @@
 <!-- Search -->
 <!-- ============================================================== -->
 <li class="nav-item search-box">
-    <a class="nav-link waves-effect waves-dark" href="javascript:void(0)">
+    <a class="nav-link waves-effect waves-dark" id="btn-open-zavoca-context-search" href="javascript:void(0)">
         <i class="ti-search font-16"></i>
     </a>
     <form class="app-search position-absolute">
-        <input type="text" class="form-control" placeholder="Search &amp; enter">
-        <a class="srh-btn">
+        <input type="text" id="zavoca-context-search-input" autocomplete="off" class="form-control" placeholder="type.... &amp; press enter">
+        <button type="submit" id="btn-zavoca-context-search" class="btn btn-primary text-white btn-circle" style="position: absolute;cursor: pointer;right:70px; color: white; top: 13px;">
+            <i class="ti-search font-16"></i>
+        </button>
+        <a id="btn-zavoca-context-search-exit" class="srh-btn">
             <i class="ti-close"></i>
         </a>
     </form>

@@ -27,6 +27,7 @@ import './backoffice-theme/app-style-switcher';
 import './backoffice-theme/waves';
 import './backoffice-theme/sidebarmenu';
 import './backoffice-theme/custom';
+import './backoffice-theme/context-search';
 
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 global.Swal = Swal;
